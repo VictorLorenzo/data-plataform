@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  sftp:
+    container_name: sftp
+    build:
+      context: .
+      dockerfile: ./docker/sftp/Dockerfile
+    volumes:
+      - ./upload:/home/foo/upload
+    ports:
+      - "2222:22"
+    command: foo:pass:1001::upload
+    healthcheck:
+      test: ["CMD", "sh", "-c", "netstat -tuln | grep 22 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    name: data-plataform
+    external: true

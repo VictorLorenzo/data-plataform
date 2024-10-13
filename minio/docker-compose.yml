@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  minio:
+    hostname: minio
+    container_name: minio
+    build:
+      context: .
+      dockerfile: ./docker/minio/Dockerfile
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - ./minio-data:/data
+    environment:
+      MINIO_ROOT_USER: accesskey
+      MINIO_ROOT_PASSWORD: secretkey
+    command: server /data --console-address ":9001"
+    healthcheck:
+      # test: ["CMD", "sh", "-c", "mc ready local || exit 1"]
+      test: ["CMD", "sh", "-c", "timeout 5s bash -c ':> /dev/tcp/127.0.0.1/9000' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  createbucket:
+    hostname: createbucket
+    container_name: createbucket
+    image: minio/mc:RELEASE.2024-01-13T08-44-48Z
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set myminio http://minio:9000 accesskey secretkey;
+      /usr/bin/mc mb myminio/datalake-landing;
+      /usr/bin/mc anonymous set public myminio/datalake-landing;
+      /usr/bin/mc mb myminio/datalake-bronze;
+      /usr/bin/mc anonymous set public myminio/datalake-bronze;
+      /usr/bin/mc mb myminio/datalake-silver;
+      /usr/bin/mc anonymous set public myminio/datalake-silver;
+      /usr/bin/mc mb myminio/datalake-gold;
+      /usr/bin/mc anonymous set public myminio/datalake-gold;
+      /usr/bin/mc mb myminio/datalake/warehouse;
+      /usr/bin/mc anonymous set public myminio/datalake/warehouse;
+      "
+
+networks:
+  default:
+    name: data-plataform
+    external: true

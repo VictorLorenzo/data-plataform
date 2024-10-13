@@ -1,0 +1,78 @@
+version: "3"
+
+services:
+  postgres:
+    hostname: postgres
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: ./docker/postgres/Dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: metastore_db
+    volumes:
+      - hive_catalog:/var/lib/postgresql/data      
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d metastore_db"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+
+  hive-metastore:
+    hostname: hive-metastore
+    container_name: hive-metastore
+    build:
+      context: .
+      dockerfile: ./docker/hive-metastore/Dockerfile
+    ports:
+      - 9083:9083
+    environment:
+      SERVICE_NAME: metastore
+      DB_DRIVER: postgres
+      HIVE_CUSTOM_CONF_DIR: /opt/hive/conf
+    volumes:
+      - ./hive-config:/opt/hive/conf
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "sh", "-c", "netstat -tuln | grep 9083 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  hive-server:
+    hostname: hive-server
+    container_name: hive-server
+    build:
+      context: .
+      dockerfile: ./docker/hive-server/Dockerfile
+    ports:
+      - 10000:10000
+      - 10002:10002
+    environment:
+      SERVICE_NAME: hiveserver2
+      IS_RESUME: "true"
+      HIVE_CUSTOM_CONF_DIR: /opt/hive/conf
+    volumes:
+      - ./hive-config:/opt/hive/conf
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "sh", "-c", "netstat -tuln | grep 10002 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      
+volumes:
+  hive_catalog:
+    driver: local
+
+networks:
+  default:
+    name: data-plataform
+    external: true

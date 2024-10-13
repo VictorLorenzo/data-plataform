@@ -1,0 +1,143 @@
+version: "3"
+
+services:
+  spark-master:
+    hostname: spark-master
+    container_name: spark-master
+    build:
+      context: .
+      dockerfile: ./docker/spark/Dockerfile
+    command: >
+      bash -c "./start.sh"
+    volumes:
+      - ./spark-apps:/opt/spark-apps
+      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./spark-config/hive-site.xml:/opt/bitnami/spark/conf/hive-site.xml
+      - ./conf/:/opt/bitnami/livy/conf/
+      - ./target/:/target_livy/
+      - ./data/:/data_livy/
+    ports:
+      - '8998:8998'
+      - "8082:8080"
+      - "7077:7077"
+      - "4040:4040"
+    environment:
+      SPARK_MODE: master
+      SPARK_PUBLIC_DNS: localhost
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):8080 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  spark-worker-1:
+    hostname: spark-worker-1
+    container_name: spark-worker-1
+    build:
+      context: .
+      dockerfile: ./docker/spark/Dockerfile
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 5g
+      SPARK_MASTER_URL: spark://spark-master:7077
+      SPARK_PUBLIC_DNS: localhost
+      SPARK_WORKER_WEBUI_PORT: 8081
+      SPARK_UI_PORT: 4040
+    ports:
+      - "8081:8081"
+      - "4041:4040"
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):8081 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  spark-worker-2:
+    hostname: spark-worker-2
+    container_name: spark-worker-2
+    build:
+      context: .
+      dockerfile: ./docker/spark/Dockerfile
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 5g
+      SPARK_MASTER_URL: spark://spark-master:7077
+      SPARK_PUBLIC_DNS: localhost
+      SPARK_WORKER_WEBUI_PORT: 8083
+      SPARK_UI_PORT: 4040
+    ports:
+      - "8083:8083"
+      - "4042:4040"
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):8083 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  spark-worker-3:
+    hostname: spark-worker-3
+    container_name: spark-worker-3
+    build:
+      context: .
+      dockerfile: ./docker/spark/Dockerfile
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 5g
+      SPARK_MASTER_URL: spark://spark-master:7077
+      SPARK_PUBLIC_DNS: localhost
+      SPARK_WORKER_WEBUI_PORT: 8084
+      SPARK_UI_PORT: 4040
+    ports:
+      - "8084:8084"
+      - "4043:4040"
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):8084 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  spark-worker-4:
+    hostname: spark-worker-4
+    container_name: spark-worker-4
+    build:
+      context: .
+      dockerfile: ./docker/spark/Dockerfile
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 5g
+      SPARK_MASTER_URL: spark://spark-master:7077
+      SPARK_PUBLIC_DNS: localhost
+      SPARK_WORKER_WEBUI_PORT: 8085
+      SPARK_UI_PORT: 4040
+    ports:
+      - "8085:8085"
+      - "4044:4040"
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):8085 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  spark_cache: {}
+
+networks:
+  default:
+    name: data-plataform
+    external: true
