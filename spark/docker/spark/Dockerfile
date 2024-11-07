@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN curl "https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.367/aws-java-sdk-bundle-1.12.367.jar" -o /opt/bitnami/spark/jars/aws-java-sdk-1.12.367.jar \
     && curl "https://repo.maven.apache.org/maven2/io/delta/delta-core_2.12/2.4.0/delta-core_2.12-2.4.0.jar" -o /opt/bitnami/spark/jars/delta-core_2.12-2.4.0.jar \
-    && curl "https://repo1.maven.org/maven2/io/delta/delta-storage/2.4.0/delta-storage-2.4.0.jar" -o /opt/bitnami/spark/jars/delta-storage-2.4.0.jar \
+    && curl "https://repo1.maven.org/maven2/io/delta/delta-storage/3.2.1/delta-storage-3.2.1.jar" -o /opt/bitnami/spark/jars/delta-storage-3.2.1.jar \
     && curl "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.6/hadoop-aws-3.3.6.jar" -o /opt/bitnami/spark/jars/hadoop-aws-3.3.6.jar
 
 WORKDIR /opt/bitnami/

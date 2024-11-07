@@ -1,0 +1,1 @@
+FROM dbeaver/cloudbeaver:24.2.0

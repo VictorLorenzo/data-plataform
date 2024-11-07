@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  kyuubi:
+    hostname: kyuubi
+    container_name: kyuubi
+    build:
+      context: .
+      dockerfile: ./docker/kyuubi/Dockerfile
+    volumes:
+      - ./kyuubi-config/kyuubi-defaults.conf:/opt/kyuubi/conf/kyuubi-defaults.conf
+    ports:
+      - "10009:10009"
+      - "10099:10099"
+    # depends_on:
+    #   - spark-master
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):10099 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    name: data-plataform
+    external: true

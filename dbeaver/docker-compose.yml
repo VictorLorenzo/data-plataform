@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  dbeaver:
+    hostname: dbeaver
+    container_name: dbeaver
+    build:
+      context: .
+      dockerfile: ./docker/dbeaver/Dockerfile
+    ports:
+      - '8978:8978'
+    volumes:
+      - ./workspace:/opt/cloudbeaver/workspace
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):8978 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    name: data-plataform
+    external: true
