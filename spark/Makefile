@@ -28,7 +28,7 @@ down-service:
 	docker compose -f $(COMPOSE_FILE) down ${SERVICE}
 
 # make logs SERVICE=service-name
-logs:
+logs-list:
 	docker compose -f $(COMPOSE_FILE) logs -f --tail 40 ${SERVICE}
 
 # make network-create NETWORK=external-network-name
