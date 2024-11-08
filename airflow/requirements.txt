@@ -1,0 +1,6 @@
+apache-airflow-providers-apache-spark==4.8.0
+apache-airflow-providers-apache-livy==3.8.1
+great-expectations==0.18.0
+pyspark==3.4.1
+pydash==8.0.3
+pydantic==2.0.0

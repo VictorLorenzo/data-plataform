@@ -10,9 +10,9 @@ services:
     command: >
       bash -c "./start.sh"
     volumes:
-      - ./spark-apps:/opt/spark-apps
-      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
-      - ./spark-config/hive-site.xml:/opt/bitnami/spark/conf/hive-site.xml
+      - ./spark-apps:/opt/spark-apps/
+      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-default.conf
+      - ./spark-config/hive-site.xml:/opt/bitnami/spark/conf/hive-sites.xml
       - ./conf/:/opt/bitnami/livy/conf/
       - ./target/:/target_livy/
       - ./data/:/data_livy/
@@ -41,8 +41,8 @@ services:
       - spark-master
     environment:
       SPARK_MODE: worker
-      SPARK_WORKER_CORES: 4
-      SPARK_WORKER_MEMORY: 9g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8081
@@ -67,8 +67,8 @@ services:
       - spark-master
     environment:
       SPARK_MODE: worker
-      SPARK_WORKER_CORES: 4
-      SPARK_WORKER_MEMORY: 9g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8083
@@ -93,8 +93,8 @@ services:
       - spark-master
     environment:
       SPARK_MODE: worker
-      SPARK_WORKER_CORES: 4
-      SPARK_WORKER_MEMORY: 9g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8084
@@ -119,8 +119,8 @@ services:
       - spark-master
     environment:
       SPARK_MODE: worker
-      SPARK_WORKER_CORES: 4
-      SPARK_WORKER_MEMORY: 9g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8085

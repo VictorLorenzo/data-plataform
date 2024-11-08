@@ -1,3 +1,6 @@
+airflow-init:
+	docker compose up airflow-init
+
 build:
 	docker compose build
 
