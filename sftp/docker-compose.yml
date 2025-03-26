@@ -7,7 +7,8 @@ services:
       context: .
       dockerfile: ./docker/sftp/Dockerfile
     volumes:
-      - ./upload:/home/foo/upload
+      - ./config/users.conf:/etc/sftp/users.conf
+      - ./upload:/home/sfpt_user/upload
     ports:
       - "2222:22"
     command: foo:pass:1001::upload
