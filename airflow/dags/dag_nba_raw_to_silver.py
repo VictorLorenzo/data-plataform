@@ -25,7 +25,7 @@ with DAG(
         application='/opt/airflow/dags/spark_job/csv_to_delta.py',  # Caminho para o arquivo do job Spark
         conn_id='spark_default',  # ID da conexão do Spark definida no Airflow
         name='spark_nba_job',  # Nome do job Spark
-        properties_file='/opt/airflow/config/spark-default.conf',  # Caminho para o arquivo de configuração do Spark
+        properties_file='/opt/airflow/config/spark-defaults.conf',  # Caminho para o arquivo de configuração do Spark
     )
 
     end = DummyOperator(task_id="end", dag=dag)
