@@ -5,8 +5,50 @@ This is a fully open-source data platform designed for efficient data ingestion,
 ### All services must be started in the order below:
 
 1. SFTP – Secure file transfer for ingesting raw data.
-2. NiFi – Automates data movement, ingestion and transformation.
-3. MinIO – Object storage for scalable data management.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd sftp && make up
+    ```
+
+2. MinIO – Object storage for scalable data management.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd ../minio && make up
+    ```
+  
+  * Access the url http://localhost:9001/login
+
+  * Minio credentials
+    ```
+      user: accesskey
+      password: secretkey
+    ```
+
+  * At the minio UI, access the "Access Key" menu 
+    ![alt text](./assets/MInioUI.png)
+
+  * Create an Access Key with this credentials
+    ```
+      accessKey: nifi
+      secretKey: nifipass
+    ```
+
+3. NiFi – Automates data movement, ingestion and transformation.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd ../nifi && make up
+    ```
+
+  * Access the url http://localhost:8443/nifi/
+
+  * At the nifi UI, upload your nifi template `./nifi/template/*.xml`
+    ![alt text](./assets/nifiTemplateUpdate.png)
+
+  * Drag and drop to 
+
 4. Spark – Distributed data processing and analytics engine.
 5. Hive – Data warehousing and querying for structured datasets.
 6. DBeaver – Database management and visualization tool.

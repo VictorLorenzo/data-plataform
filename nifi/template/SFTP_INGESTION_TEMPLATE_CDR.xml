@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <template encoding-version="1.3">
     <description></description>
-    <groupId>82871d50-0192-1000-84bd-ccf86327c66f</groupId>
-    <name>SFTP INGESTION TEMPLATE</name>
+    <groupId>d54e7c01-0195-1000-a3dc-be6b15afa2ab</groupId>
+    <name>SFTP INGESTION TEMPLATE CDR</name>
     <snippet>
         <processGroups>
-            <id>2c543721-589e-3b7b-0000-000000000000</id>
-            <parentGroupId>9e08a8b8-84a1-3b6e-0000-000000000000</parentGroupId>
+            <id>b77c0198-6350-3df1-0000-000000000000</id>
+            <parentGroupId>71ad224d-b925-365b-0000-000000000000</parentGroupId>
             <position>
                 <x>0.0</x>
                 <y>0.0</y>
@@ -14,13 +14,13 @@
             <comments></comments>
             <contents>
                 <connections>
-                    <id>050700f4-7257-37e6-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>13f9f859-121d-3a28-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>3c069ef5-1f2f-3d04-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>0755460e-2b39-3799-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -32,20 +32,24 @@
                     <name></name>
                     <selectedRelationships>success</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>316604ab-e42f-3f07-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>feb0308b-2caf-3e0b-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>38f71512-ba7f-3453-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>1bd916dd-0120-3060-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <bends>
+                        <x>1108.0</x>
+                        <y>469.0</y>
+                    </bends>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>bf44c764-70a8-3006-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>0755460e-2b39-3799-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -55,47 +59,22 @@
                     <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
                     <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
                     <name></name>
-                    <selectedRelationships>failure</selectedRelationships>
+                    <selectedRelationships>retry</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>437b4f23-bd93-3054-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>2a9c9012-4f33-308e-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>8d48fa07-ea4c-30c0-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>22436072-4f0f-3244-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>316604ab-e42f-3f07-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>cfccdcd3-648c-3017-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>8e60573c-c228-34cf-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>554091db-7fde-389d-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>f8e2d4ec-5fd2-3eee-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -107,20 +86,20 @@
                     <name></name>
                     <selectedRelationships>success</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>3c069ef5-1f2f-3d04-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>f7c9ad15-de8c-3c3d-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>9db12e77-e5b0-3c08-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>4f144ae1-1e86-312a-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>cdea0416-edcd-3153-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>fbe50ac9-f35e-36e5-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -133,78 +112,20 @@
                     <selectedRelationships>failure</selectedRelationships>
                     <selectedRelationships>retries_exceeded</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>bf44c764-70a8-3006-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>2a9c9012-4f33-308e-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>b76a830f-075a-32f7-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <bends>
-                        <x>1108.0</x>
-                        <y>469.0</y>
-                    </bends>
-                    <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>316604ab-e42f-3f07-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>retry</selectedRelationships>
-                    <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>f5b6a866-9090-3fcd-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>b9e0bf49-68c9-3aae-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <bends>
-                        <x>1080.0</x>
-                        <y>1285.0</y>
-                    </bends>
-                    <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>437b4f23-bd93-3054-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>retry</selectedRelationships>
-                    <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>bf44c764-70a8-3006-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>c131e1f2-6a34-3c82-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>6232778e-6f24-3fb0-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>437b4f23-bd93-3054-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>8c6b0643-1d32-3c79-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -216,20 +137,20 @@
                     <name></name>
                     <selectedRelationships>success</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>554091db-7fde-389d-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>0755460e-2b39-3799-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>c5f7661b-5437-396c-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>8ff9a8ad-491a-3099-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>4390f9a9-4246-3d2c-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>c8da449d-e98f-3ce4-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -241,20 +162,124 @@
                     <name></name>
                     <selectedRelationships>retry</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>bf44c764-70a8-3006-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>142ce88c-7866-3754-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>ca31983e-00b0-3057-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>98322b5e-d366-39c2-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>f5b6a866-9090-3fcd-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>5d5d98e2-4a7a-3eff-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>retry</selectedRelationships>
+                    <source>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>2a9c9012-4f33-308e-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>a3678625-d81c-3fcb-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <bends>
+                        <x>1080.0</x>
+                        <y>1285.0</y>
+                    </bends>
+                    <destination>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>f7c9ad15-de8c-3c3d-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>retry</selectedRelationships>
+                    <source>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>142ce88c-7866-3754-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>a84725b3-ad34-3f00-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>f7c9ad15-de8c-3c3d-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>302a9d58-5f30-3cd4-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>aa902482-3620-37b3-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>142ce88c-7866-3754-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>failure</selectedRelationships>
+                    <source>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>f7c9ad15-de8c-3c3d-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>e1454164-dc10-37a2-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>2a9c9012-4f33-308e-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -268,70 +293,20 @@
                     <selectedRelationships>not.found</selectedRelationships>
                     <selectedRelationships>permission.denied</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>316604ab-e42f-3f07-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>0755460e-2b39-3799-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>d71b67a7-5e3b-3c79-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>f74e0139-df6a-3938-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>bfea8312-c371-35f0-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>437b4f23-bd93-3054-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>e81f1d60-502d-3b39-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>ebe917f3-dd8c-3189-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>retry</selectedRelationships>
-                    <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>f5b6a866-9090-3fcd-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>eac062f7-8a39-38f3-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>a4667974-6b38-3d6d-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>25139774-3991-3458-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -344,15 +319,40 @@
                     <selectedRelationships>failure</selectedRelationships>
                     <selectedRelationships>retries_exceeded</selectedRelationships>
                     <source>
-                        <groupId>2c543721-589e-3b7b-0000-000000000000</groupId>
-                        <id>f5b6a866-9090-3fcd-0000-000000000000</id>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>142ce88c-7866-3754-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>fca40252-4e2b-3e9e-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>302a9d58-5f30-3cd4-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>b77c0198-6350-3df1-0000-000000000000</groupId>
+                        <id>8c6b0643-1d32-3c79-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <processors>
-                    <id>316604ab-e42f-3f07-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>0755460e-2b39-3799-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <position>
                         <x>528.0</x>
                         <y>480.0</y>
@@ -675,8 +675,456 @@
                     <type>org.apache.nifi.processors.standard.FetchSFTP</type>
                 </processors>
                 <processors>
-                    <id>3c069ef5-1f2f-3d04-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>142ce88c-7866-3754-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1272.0</x>
+                        <y>1296.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.27.0</version>
+                    </bundle>
+                    <config>
+                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>retry-attribute</key>
+<value>
+    <name>retry-attribute</name>
+</value>
+                            </entry>
+                            <entry>
+<key>maximum-retries</key>
+<value>
+    <name>maximum-retries</name>
+</value>
+                            </entry>
+                            <entry>
+<key>penalize-retries</key>
+<value>
+    <name>penalize-retries</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Fail on Non-numerical Overwrite</key>
+<value>
+    <name>Fail on Non-numerical Overwrite</name>
+</value>
+                            </entry>
+                            <entry>
+<key>reuse-mode</key>
+<value>
+    <name>reuse-mode</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>retry-attribute</key>
+<value>flowfile.retries</value>
+                            </entry>
+                            <entry>
+<key>maximum-retries</key>
+<value>3</value>
+                            </entry>
+                            <entry>
+<key>penalize-retries</key>
+<value>true</value>
+                            </entry>
+                            <entry>
+<key>Fail on Non-numerical Overwrite</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>reuse-mode</key>
+<value>fail</value>
+                            </entry>
+                        </properties>
+                        <retryCount>10</retryCount>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>RetryFlowFile</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>failure</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>retries_exceeded</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>retry</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.RetryFlowFile</type>
+                </processors>
+                <processors>
+                    <id>25139774-3991-3458-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1944.0</x>
+                        <y>1448.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.27.0</version>
+                    </bundle>
+                    <config>
+                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>log-level</key>
+<value>
+    <name>log-level</name>
+</value>
+                            </entry>
+                            <entry>
+<key>log-prefix</key>
+<value>
+    <name>log-prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>log-message</key>
+<value>
+    <name>log-message</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>log-level</key>
+<value>error</value>
+                            </entry>
+                            <entry>
+<key>log-prefix</key>
+<value>SFTP_INGESTION</value>
+                            </entry>
+                            <entry>
+<key>log-message</key>
+<value>All retries has been exceeded, something went wrong with MinIO service</value>
+                            </entry>
+                        </properties>
+                        <retryCount>10</retryCount>
+                        <runDurationMillis>25</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>LogMessage</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style>
+                        <entry>
+                            <key>background-color</key>
+                            <value>#ff0000</value>
+                        </entry>
+                    </style>
+                    <type>org.apache.nifi.processors.standard.LogMessage</type>
+                </processors>
+                <processors>
+                    <id>2a9c9012-4f33-308e-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1336.0</x>
+                        <y>480.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.27.0</version>
+                    </bundle>
+                    <config>
+                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>retry-attribute</key>
+<value>
+    <name>retry-attribute</name>
+</value>
+                            </entry>
+                            <entry>
+<key>maximum-retries</key>
+<value>
+    <name>maximum-retries</name>
+</value>
+                            </entry>
+                            <entry>
+<key>penalize-retries</key>
+<value>
+    <name>penalize-retries</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Fail on Non-numerical Overwrite</key>
+<value>
+    <name>Fail on Non-numerical Overwrite</name>
+</value>
+                            </entry>
+                            <entry>
+<key>reuse-mode</key>
+<value>
+    <name>reuse-mode</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>retry-attribute</key>
+<value>flowfile.retries</value>
+                            </entry>
+                            <entry>
+<key>maximum-retries</key>
+<value>3</value>
+                            </entry>
+                            <entry>
+<key>penalize-retries</key>
+<value>true</value>
+                            </entry>
+                            <entry>
+<key>Fail on Non-numerical Overwrite</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>reuse-mode</key>
+<value>fail</value>
+                            </entry>
+                        </properties>
+                        <retryCount>10</retryCount>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>RetryFlowFile</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>failure</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>retries_exceeded</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>retry</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.RetryFlowFile</type>
+                </processors>
+                <processors>
+                    <id>302a9d58-5f30-3cd4-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>536.0</x>
+                        <y>1056.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-update-attribute-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.27.0</version>
+                    </bundle>
+                    <config>
+                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Delete Attributes Expression</key>
+<value>
+    <name>Delete Attributes Expression</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Store State</key>
+<value>
+    <name>Store State</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Stateful Variables Initial Value</key>
+<value>
+    <name>Stateful Variables Initial Value</name>
+</value>
+                            </entry>
+                            <entry>
+<key>canonical-value-lookup-cache-size</key>
+<value>
+    <name>canonical-value-lookup-cache-size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>minio_object_key</key>
+<value>
+    <name>minio_object_key</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Delete Attributes Expression</key>
+                            </entry>
+                            <entry>
+<key>Store State</key>
+<value>Do not store state</value>
+                            </entry>
+                            <entry>
+<key>Stateful Variables Initial Value</key>
+                            </entry>
+                            <entry>
+<key>canonical-value-lookup-cache-size</key>
+<value>100</value>
+                            </entry>
+                            <entry>
+<key>minio_object_key</key>
+<value>${minio_subpath}/${tablename}/${filename}</value>
+                            </entry>
+                        </properties>
+                        <retryCount>10</retryCount>
+                        <runDurationMillis>25</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>UpdateAttribute</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                </processors>
+                <processors>
+                    <id>5d5d98e2-4a7a-3eff-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1984.0</x>
+                        <y>488.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.27.0</version>
+                    </bundle>
+                    <config>
+                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>log-level</key>
+<value>
+    <name>log-level</name>
+</value>
+                            </entry>
+                            <entry>
+<key>log-prefix</key>
+<value>
+    <name>log-prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>log-message</key>
+<value>
+    <name>log-message</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>log-level</key>
+<value>info</value>
+                            </entry>
+                            <entry>
+<key>log-prefix</key>
+<value>SFTP_INGESTION</value>
+                            </entry>
+                            <entry>
+<key>log-message</key>
+<value>Something went wrong with SFTP server, retrying...</value>
+                            </entry>
+                        </properties>
+                        <retryCount>10</retryCount>
+                        <runDurationMillis>25</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>Log Warning</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style>
+                        <entry>
+                            <key>background-color</key>
+                            <value>#ffe100</value>
+                        </entry>
+                    </style>
+                    <type>org.apache.nifi.processors.standard.LogMessage</type>
+                </processors>
+                <processors>
+                    <id>8c6b0643-1d32-3c79-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <position>
                         <x>528.0</x>
                         <y>784.0</y>
@@ -767,8 +1215,85 @@
                     <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
                 </processors>
                 <processors>
-                    <id>437b4f23-bd93-3054-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>c8da449d-e98f-3ce4-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1936.0</x>
+                        <y>1168.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.27.0</version>
+                    </bundle>
+                    <config>
+                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>log-level</key>
+<value>
+    <name>log-level</name>
+</value>
+                            </entry>
+                            <entry>
+<key>log-prefix</key>
+<value>
+    <name>log-prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>log-message</key>
+<value>
+    <name>log-message</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>log-level</key>
+<value>info</value>
+                            </entry>
+                            <entry>
+<key>log-prefix</key>
+<value>SFTP_INGESTION</value>
+                            </entry>
+                            <entry>
+<key>log-message</key>
+<value>Something went wrong with MinIO service, retrying...</value>
+                            </entry>
+                        </properties>
+                        <retryCount>10</retryCount>
+                        <runDurationMillis>25</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>LogMessage</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                        <retry>false</retry>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style>
+                        <entry>
+                            <key>background-color</key>
+                            <value>#ffff00</value>
+                        </entry>
+                    </style>
+                    <type>org.apache.nifi.processors.standard.LogMessage</type>
+                </processors>
+                <processors>
+                    <id>f7c9ad15-de8c-3c3d-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <position>
                         <x>536.0</x>
                         <y>1296.0</y>
@@ -1219,354 +1744,8 @@
                     <type>org.apache.nifi.processors.aws.s3.PutS3Object</type>
                 </processors>
                 <processors>
-                    <id>4390f9a9-4246-3d2c-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>1936.0</x>
-                        <y>1168.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-standard-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.27.0</version>
-                    </bundle>
-                    <config>
-                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>log-level</key>
-<value>
-    <name>log-level</name>
-</value>
-                            </entry>
-                            <entry>
-<key>log-prefix</key>
-<value>
-    <name>log-prefix</name>
-</value>
-                            </entry>
-                            <entry>
-<key>log-message</key>
-<value>
-    <name>log-message</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>log-level</key>
-<value>info</value>
-                            </entry>
-                            <entry>
-<key>log-prefix</key>
-<value>SFTP_INGESTION</value>
-                            </entry>
-                            <entry>
-<key>log-message</key>
-<value>Something went wrong with MinIO service, retrying...</value>
-                            </entry>
-                        </properties>
-                        <retryCount>10</retryCount>
-                        <runDurationMillis>25</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>LogMessage</name>
-                    <relationships>
-                        <autoTerminate>true</autoTerminate>
-                        <name>success</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style>
-                        <entry>
-                            <key>background-color</key>
-                            <value>#ffff00</value>
-                        </entry>
-                    </style>
-                    <type>org.apache.nifi.processors.standard.LogMessage</type>
-                </processors>
-                <processors>
-                    <id>554091db-7fde-389d-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>536.0</x>
-                        <y>1056.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-update-attribute-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.27.0</version>
-                    </bundle>
-                    <config>
-                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>Delete Attributes Expression</key>
-<value>
-    <name>Delete Attributes Expression</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Store State</key>
-<value>
-    <name>Store State</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Stateful Variables Initial Value</key>
-<value>
-    <name>Stateful Variables Initial Value</name>
-</value>
-                            </entry>
-                            <entry>
-<key>canonical-value-lookup-cache-size</key>
-<value>
-    <name>canonical-value-lookup-cache-size</name>
-</value>
-                            </entry>
-                            <entry>
-<key>minio_object_key</key>
-<value>
-    <name>minio_object_key</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>Delete Attributes Expression</key>
-                            </entry>
-                            <entry>
-<key>Store State</key>
-<value>Do not store state</value>
-                            </entry>
-                            <entry>
-<key>Stateful Variables Initial Value</key>
-                            </entry>
-                            <entry>
-<key>canonical-value-lookup-cache-size</key>
-<value>100</value>
-                            </entry>
-                            <entry>
-<key>minio_object_key</key>
-<value>${minio_subpath}/${tablename}/${filename}</value>
-                            </entry>
-                        </properties>
-                        <retryCount>10</retryCount>
-                        <runDurationMillis>25</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>UpdateAttribute</name>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>success</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style/>
-                    <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
-                </processors>
-                <processors>
-                    <id>a4667974-6b38-3d6d-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>1984.0</x>
-                        <y>312.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-standard-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.27.0</version>
-                    </bundle>
-                    <config>
-                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>log-level</key>
-<value>
-    <name>log-level</name>
-</value>
-                            </entry>
-                            <entry>
-<key>log-prefix</key>
-<value>
-    <name>log-prefix</name>
-</value>
-                            </entry>
-                            <entry>
-<key>log-message</key>
-<value>
-    <name>log-message</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>log-level</key>
-<value>error</value>
-                            </entry>
-                            <entry>
-<key>log-prefix</key>
-<value>SFTP_INGESTION</value>
-                            </entry>
-                            <entry>
-<key>log-message</key>
-<value>All retries has been exceeded, something went wrong with SFTP server.</value>
-                            </entry>
-                        </properties>
-                        <retryCount>10</retryCount>
-                        <runDurationMillis>25</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>Log Failure</name>
-                    <relationships>
-                        <autoTerminate>true</autoTerminate>
-                        <name>success</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style>
-                        <entry>
-                            <key>background-color</key>
-                            <value>#ff0000</value>
-                        </entry>
-                    </style>
-                    <type>org.apache.nifi.processors.standard.LogMessage</type>
-                </processors>
-                <processors>
-                    <id>bf44c764-70a8-3006-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>1272.0</x>
-                        <y>1296.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-standard-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.27.0</version>
-                    </bundle>
-                    <config>
-                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>retry-attribute</key>
-<value>
-    <name>retry-attribute</name>
-</value>
-                            </entry>
-                            <entry>
-<key>maximum-retries</key>
-<value>
-    <name>maximum-retries</name>
-</value>
-                            </entry>
-                            <entry>
-<key>penalize-retries</key>
-<value>
-    <name>penalize-retries</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Fail on Non-numerical Overwrite</key>
-<value>
-    <name>Fail on Non-numerical Overwrite</name>
-</value>
-                            </entry>
-                            <entry>
-<key>reuse-mode</key>
-<value>
-    <name>reuse-mode</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>retry-attribute</key>
-<value>flowfile.retries</value>
-                            </entry>
-                            <entry>
-<key>maximum-retries</key>
-<value>3</value>
-                            </entry>
-                            <entry>
-<key>penalize-retries</key>
-<value>true</value>
-                            </entry>
-                            <entry>
-<key>Fail on Non-numerical Overwrite</key>
-<value>false</value>
-                            </entry>
-                            <entry>
-<key>reuse-mode</key>
-<value>fail</value>
-                            </entry>
-                        </properties>
-                        <retryCount>10</retryCount>
-                        <runDurationMillis>0</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>RetryFlowFile</name>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>failure</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>retries_exceeded</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>retry</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style/>
-                    <type>org.apache.nifi.processors.standard.RetryFlowFile</type>
-                </processors>
-                <processors>
-                    <id>bfea8312-c371-35f0-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>f8e2d4ec-5fd2-3eee-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <position>
                         <x>536.0</x>
                         <y>1584.0</y>
@@ -1642,11 +1821,11 @@
                     <type>org.apache.nifi.processors.standard.LogMessage</type>
                 </processors>
                 <processors>
-                    <id>cdea0416-edcd-3153-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>fbe50ac9-f35e-36e5-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <position>
-                        <x>1944.0</x>
-                        <y>1448.0</y>
+                        <x>1984.0</x>
+                        <y>312.0</y>
                     </position>
                     <bundle>
                         <artifact>nifi-standard-nar</artifact>
@@ -1693,7 +1872,7 @@
                             </entry>
                             <entry>
 <key>log-message</key>
-<value>All retries has been exceeded, something went wrong with MinIO service</value>
+<value>All retries has been exceeded, something went wrong with SFTP server.</value>
                             </entry>
                         </properties>
                         <retryCount>10</retryCount>
@@ -1703,7 +1882,7 @@
                         <yieldDuration>1 sec</yieldDuration>
                     </config>
                     <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>LogMessage</name>
+                    <name>Log Failure</name>
                     <relationships>
                         <autoTerminate>true</autoTerminate>
                         <name>success</name>
@@ -1719,8 +1898,8 @@
                     <type>org.apache.nifi.processors.standard.LogMessage</type>
                 </processors>
                 <processors>
-                    <id>cfccdcd3-648c-3017-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
+                    <id>feb0308b-2caf-3e0b-0000-000000000000</id>
+                    <parentGroupId>b77c0198-6350-3df1-0000-000000000000</parentGroupId>
                     <position>
                         <x>528.0</x>
                         <y>168.0</y>
@@ -2013,7 +2192,7 @@
                             </entry>
                             <entry>
 <key>Remote Path</key>
-<value>.</value>
+<value>${sftp_remote_path}</value>
                             </entry>
                             <entry>
 <key>record-writer</key>
@@ -2041,7 +2220,7 @@
                             </entry>
                             <entry>
 <key>Remote Poll Batch Size</key>
-<value>50000</value>
+<value>9999999</value>
                             </entry>
                             <entry>
 <key>Strict Host Key Checking</key>
@@ -2144,185 +2323,6 @@
                     <style/>
                     <type>org.apache.nifi.processors.standard.ListSFTP</type>
                 </processors>
-                <processors>
-                    <id>ebe917f3-dd8c-3189-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>1984.0</x>
-                        <y>488.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-standard-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.27.0</version>
-                    </bundle>
-                    <config>
-                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>log-level</key>
-<value>
-    <name>log-level</name>
-</value>
-                            </entry>
-                            <entry>
-<key>log-prefix</key>
-<value>
-    <name>log-prefix</name>
-</value>
-                            </entry>
-                            <entry>
-<key>log-message</key>
-<value>
-    <name>log-message</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>log-level</key>
-<value>info</value>
-                            </entry>
-                            <entry>
-<key>log-prefix</key>
-<value>SFTP_INGESTION</value>
-                            </entry>
-                            <entry>
-<key>log-message</key>
-<value>Something went wrong with SFTP server, retrying...</value>
-                            </entry>
-                        </properties>
-                        <retryCount>10</retryCount>
-                        <runDurationMillis>25</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>Log Warning</name>
-                    <relationships>
-                        <autoTerminate>true</autoTerminate>
-                        <name>success</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style>
-                        <entry>
-                            <key>background-color</key>
-                            <value>#ffe100</value>
-                        </entry>
-                    </style>
-                    <type>org.apache.nifi.processors.standard.LogMessage</type>
-                </processors>
-                <processors>
-                    <id>f5b6a866-9090-3fcd-0000-000000000000</id>
-                    <parentGroupId>2c543721-589e-3b7b-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>1336.0</x>
-                        <y>480.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-standard-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.27.0</version>
-                    </bundle>
-                    <config>
-                        <backoffMechanism>PENALIZE_FLOWFILE</backoffMechanism>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>retry-attribute</key>
-<value>
-    <name>retry-attribute</name>
-</value>
-                            </entry>
-                            <entry>
-<key>maximum-retries</key>
-<value>
-    <name>maximum-retries</name>
-</value>
-                            </entry>
-                            <entry>
-<key>penalize-retries</key>
-<value>
-    <name>penalize-retries</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Fail on Non-numerical Overwrite</key>
-<value>
-    <name>Fail on Non-numerical Overwrite</name>
-</value>
-                            </entry>
-                            <entry>
-<key>reuse-mode</key>
-<value>
-    <name>reuse-mode</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <maxBackoffPeriod>10 mins</maxBackoffPeriod>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>retry-attribute</key>
-<value>flowfile.retries</value>
-                            </entry>
-                            <entry>
-<key>maximum-retries</key>
-<value>3</value>
-                            </entry>
-                            <entry>
-<key>penalize-retries</key>
-<value>true</value>
-                            </entry>
-                            <entry>
-<key>Fail on Non-numerical Overwrite</key>
-<value>false</value>
-                            </entry>
-                            <entry>
-<key>reuse-mode</key>
-<value>fail</value>
-                            </entry>
-                        </properties>
-                        <retryCount>10</retryCount>
-                        <runDurationMillis>0</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>RetryFlowFile</name>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>failure</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>retries_exceeded</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>retry</name>
-                        <retry>false</retry>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style/>
-                    <type>org.apache.nifi.processors.standard.RetryFlowFile</type>
-                </processors>
             </contents>
             <defaultBackPressureDataSizeThreshold>1 GB</defaultBackPressureDataSizeThreshold>
             <defaultBackPressureObjectThreshold>10000</defaultBackPressureObjectThreshold>
@@ -2333,7 +2333,11 @@
             <variables>
                 <entry>
                     <key>sftp_user</key>
-                    <value>foo</value>
+                    <value>sfpt_user</value>
+                </entry>
+                <entry>
+                    <key>sftp_port</key>
+                    <value>22</value>
                 </entry>
                 <entry>
                     <key>sftp_host</key>
@@ -2344,15 +2348,15 @@
                     <value>datalake-landing</value>
                 </entry>
                 <entry>
-                    <key>minio_subpath</key>
-                    <value>datalake-raw-nba/nba</value>
+                    <key>sftp_remote_path</key>
+                    <value>./upload/nba</value>
                 </entry>
                 <entry>
-                    <key>sftp_port</key>
-                    <value>22</value>
+                    <key>minio_subpath</key>
+                    <value>datalake-raw-nba</value>
                 </entry>
             </variables>
         </processGroups>
     </snippet>
-    <timestamp>10/12/2024 22:32:13 UTC</timestamp>
+    <timestamp>03/27/2025 02:50:28 UTC</timestamp>
 </template>
