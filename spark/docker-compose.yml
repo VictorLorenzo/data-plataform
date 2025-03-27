@@ -11,8 +11,8 @@ services:
       bash -c "./start.sh"
     volumes:
       - ./spark-apps:/opt/spark-apps/
-      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-default.conf
-      - ./spark-config/hive-site.xml:/opt/bitnami/spark/conf/hive-sites.xml
+      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./spark-config/hive-site.xml:/opt/bitnami/spark/conf/hive-site.xml
       - ./conf/:/opt/bitnami/livy/conf/
       - ./target/:/target_livy/
       - ./data/:/data_livy/
