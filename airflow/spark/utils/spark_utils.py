@@ -29,6 +29,9 @@ class ProcessData():
         df = self._read_source_file()
         writer = self._build_writer(df)
 
+    def _build_writer(self, df):
+        process_config = self.process_config
+
     def execute(self):
         logger = self.logger
         process_config = self.process_config
@@ -43,8 +46,6 @@ class ProcessData():
             logger.error("An error ocurred: %s", str(e))
             logger.info("Data processing finished with errors.")
             raise e
-
-    def _build_writer(self, df):
 
     def _read_source_file(self):
         spark = self.spark
@@ -69,8 +70,8 @@ class ProcessData():
         else:
             df = (
                 spark.readStream
-                    .format(process_config["options"]["format"])
-                    .load(process_config["options"]["path"])
+                    .format(process_config["options"]["source"]["format"])
+                    .load(process_config["options"]["source"]["path"])
             )
 
         return df
