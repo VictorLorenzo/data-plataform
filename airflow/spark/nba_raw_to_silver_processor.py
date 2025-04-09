@@ -1,4 +1,5 @@
 from utils.spark_utils import SparkUtils, ProcessData
+import logging
 
 # Create Spark Session
 def main():
@@ -21,5 +22,11 @@ def main():
     }
     spark_utils = SparkUtils()
     spark = spark_utils.get_spark_session(app_name)
+    
     process_data = ProcessData(spark=spark, process_config = config_file)
+    process_data.execute()
 
+    spark.stop()
+
+if __name__ == "__main__":
+    main()
