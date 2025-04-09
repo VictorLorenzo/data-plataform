@@ -21,5 +21,5 @@ def main():
     }
     spark_utils = SparkUtils()
     spark = spark_utils.get_spark_session(app_name)
-    process_date = ProcessData(spark=spark, process_config = config_file)
+    process_data = ProcessData(spark=spark, process_config = config_file)
 

@@ -1,3 +1,4 @@
+import random
 from pyspark.sql import SparkSession
 import logging
 
@@ -28,9 +29,18 @@ class ProcessData():
     def process_file(self):
         df = self._read_source_file()
         writer = self._build_writer(df)
+        #self.execute_process_streaming(writer)
 
     def _build_writer(self, df):
-        process_config = self.process_config
+        if df.isStreaming:
+            print("df is streaming")
+
+    def execute_process_streaming(self,writer):
+        writer = writer.trigger(
+            availableNow=True
+        )
+
+        writer.start().awaitTermination()
 
     def execute(self):
         logger = self.logger
