@@ -22,7 +22,7 @@ with DAG(
 
     spark_task_submit_operator_nba = SparkSubmitOperator(
         task_id='spark_task_submit_operator_nba',
-        application='/opt/airflow/spark/nba_raw_to_silver_processor.py',  # Caminho para o arquivo do job Spark
+        application='/opt/airflow/spark/nba_raw_to_bronze_processor.py',  # Caminho para o arquivo do job Spark
         conn_id='spark_default',  # ID da conexão do Spark definida no Airflow
         name='spark_nba_job',  # Nome do job Spark
         driver_memory='1g',  # Memória do driver

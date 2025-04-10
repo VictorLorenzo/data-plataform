@@ -32,8 +32,20 @@ class ProcessData():
         #self.execute_process_streaming(writer)
 
     def _build_writer(self, df):
+        process_config = self.process_config
+        process_config = process_config["type_processing"]
         if df.isStreaming:
-            print("df is streaming")
+            writer = (
+                df.writeStream
+                .format(process_config["spark_options"]["target"]["format"])
+                .option("path", process_config["spark_options"]["target"]["path"])
+                .option("checkpointLocation", process_config["spark_options"]["target"]["options"]["checkpoint"])
+                .outputMode(process_config["spark_options"]["target"]["options"]["output_mode"])
+                .foreachBatch(self._foreach_batch)
+                .queryName(f"writeing table into deltalake")
+            )
+
+    def _foreach_batch(self, df, batch_id):
 
     def execute_process_streaming(self,writer):
         writer = writer.trigger(
@@ -47,10 +59,8 @@ class ProcessData():
         process_config = self.process_config
 
         try:
-            if process_config["options"]["process_type"] == "file":
+            if process_config["spark_options"]["source"]["process_type"] == "file":
                 self.process_file()
-
-            self.process_sql()
 
         except Exception as e:
             logger.error("An error ocurred: %s", str(e))
@@ -61,27 +71,28 @@ class ProcessData():
         spark = self.spark
         process_config = self.process_config
 
-        if process_config["options"]["format"] != "delta":
-            static_df = (spark
-                    .read
-                    .format(process_config["options"]["format"])
-                    .option(**process_config["options"]["spark_options"])
-                    .load(process_config["options"]["path"])
+        if process_config["spark_options"]["source"]["format"] != "delta":
+            print(process_config["spark_options"]["source"]["options"])
+            static_df = (
+                spark.read
+                    .format(process_config["spark_options"]["source"]["format"])
+                    .options(**process_config["spark_options"]["source"]["options"])
+                    .load(process_config["spark_options"]["source"]["path"])
             )
             schema = static_df.schema
 
             df = (
                 spark.readStream
-                    .format(process_config["options"]["format"])
-                    .option(**process_config["options"]["spark_options"])
+                    .format(process_config["spark_options"]["source"]["format"])
+                    .options(**process_config["spark_options"]["source"]["options"])
                     .schema(schema)
-                    .load(process_config["options"]["path"])
+                    .load(process_config["spark_options"]["source"]["path"])
             )
         else:
             df = (
                 spark.readStream
-                    .format(process_config["options"]["source"]["format"])
-                    .load(process_config["options"]["source"]["path"])
+                    .format(process_config["spark_options"]["source"]["source"]["format"])
+                    .load(process_config["spark_options"]["source"]["source"]["path"])
             )
 
         return df
