@@ -42,7 +42,7 @@ services:
     environment:
       SPARK_MODE: worker
       SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 4g
+      SPARK_WORKER_MEMORY: 5g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8081
@@ -68,7 +68,7 @@ services:
     environment:
       SPARK_MODE: worker
       SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 4g
+      SPARK_WORKER_MEMORY: 5g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8083
@@ -94,7 +94,7 @@ services:
     environment:
       SPARK_MODE: worker
       SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 4g
+      SPARK_WORKER_MEMORY: 5g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8084
@@ -120,7 +120,7 @@ services:
     environment:
       SPARK_MODE: worker
       SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 4g
+      SPARK_WORKER_MEMORY: 5g
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_PUBLIC_DNS: localhost
       SPARK_WORKER_WEBUI_PORT: 8085
