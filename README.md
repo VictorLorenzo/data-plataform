@@ -1,128 +1,122 @@
 # Description
+
 This is a fully open-source data platform designed for efficient data ingestion, processing, storage, and analytics. It integrates multiple services to provide a seamless data pipeline, from collection to visualization.
+
 ## Initial Setup
 
 ### All services must be started in the order below:
 
-1. SFTP – Secure file transfer for ingesting raw data.
+#### 1. SFTP – Secure file transfer for ingesting raw data.
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd sftp && make up
-    ```
+* Run the comamnd at the terminal to up the containner
+  ```sh
+  cd sftp && make up
+  ```
 
-2. MinIO – Object storage for scalable data management.
+#### 2. MinIO – Object storage for scalable data management.
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd ../minio && make up
-    ```
-  
-  * Access the url http://localhost:9001/login
+* Run the comamnd at the terminal to up the containner
 
-  * Minio credentials
-    ```
-      user: accesskey
-      password: secretkey
-    ```
+  ```sh
+  cd ../minio && make up
+  ```
+* Access the url http://localhost:9001/login
+* Minio credentials
 
-  * At the minio UI, access the "Access Key" menu 
-    ![alt text](./assets/MInioUI.png)
+  ```
+  user: accesskey
+  password: secretkey
+  ```
+* At the minio UI, access the "Access Key" menu
+  ![alt text](./assets/MInioUI.png)
+* Create an Access Key with this credentials
 
-  * Create an Access Key with this credentials
-    ```
-      accessKey: nifi
-      secretKey: nifipass
-    ```
+  ```
+  accessKey: nifi
+  secretKey: nifipass
+  ```
 
-3. NiFi – Automates data movement, ingestion and transformation.
+#### 3. NiFi – Automates data movement, ingestion and transformation.
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd ../nifi && make up
-    ```
+* Run the comamnd at the terminal to up the containner
 
-  * Access the url http://localhost:8443/nifi/
+  ```sh
+  cd ../nifi && make up
+  ```
+* Access the url http://localhost:8443/nifi/
+* At the nifi UI, upload your nifi template `./nifi/template/*.xml`
+  ![alt text](./assets/nifiTemplateUpdate.png)
+* Drag and drop to chose the uploaded template
+  ![alt text](./assets/SFTP_INGESTION.png)
+* Access the template and set the variables of the platform
+  ![alt text](./assets/Variables.png)
+  ![alt text](./assets/Variables_set.png)
+* Change the password to LIST_SFTP AND FETCH_SFTP
+  `pass: Sftp_Userpass12!@`
+  ![alt text](./assets/Password.png)
+* Run the pipeline
+  ![alt text](./assets/Start_pipeline_nifi.png)
+* Watch your files in Minio
+  ![alt text](./assets/minio_landing.png)
 
-  * At the nifi UI, upload your nifi template `./nifi/template/*.xml`
-    ![alt text](./assets/nifiTemplateUpdate.png)
+#### 4. Spark – Distributed data processing and analytics engine.
 
-  * Drag and drop to chose the uploaded template
-    ![alt text](./assets/SFTP_INGESTION.png)
+* Run the comamnd at the terminal to up the containner
 
-  * Access the template and set the variables of the platform
-    ![alt text](./assets/Variables.png)
-    ![alt text](./assets/Variables_set.png)
+  ```sh
+  cd ../spark && make up
+  ```
+* Access http://localhost:8082/ to watch your spark workers
+  ![alt text](./assets/spark_workers.png)
 
-  * Change the password to LIST_SFTP AND FETCH_SFTP
-    `pass: Sftp_Userpass12!@`
-    ![alt text](./assets/Password.png)
+#### 5. Hive – Data warehousing and querying for structured datasets.
 
-  * Run the pipeline
-    ![alt text](./assets/Start_pipeline_nifi.png)
+* Run the comamnd at the terminal to up the containner
+  ```sh
+  cd ../hive && make up
+  ```
 
-  * Watch your files in Minio
-    ![alt text](./assets/minio_landing.png)
+#### 6. Airflow – Workflow orchestration platform for authoring, scheduling, and monitoring data pipelines.
 
-4. Spark – Distributed data processing and analytics engine.
+* Run the comamnd at the terminal to up the containner
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd ../spark && make up
-    ```
-  
-  * Access http://localhost:8082/ to watch your spark workers
-    ![alt text](./assets/spark_workers.png)
+  ```sh
+  cd ../airflow && make up
+  ```
+* Access the url http://localhost:8080/login/
 
-5. Hive – Data warehousing and querying for structured datasets.
+  ```
+  user: airflow
+  pass: airflow
+  ```
+* Run your pipeline
+  ![alt text](./assets/airflow_pipeline.png)
+  ![alt text](./assets/airflow_pipeline_detailed.png)
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd ../hive && make up
-    ```
+#### 7. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
 
-6. Airflow – Workflow orchestration platform for authoring, scheduling, and monitoring data pipelines.
+* Run the comamnd at the terminal to up the containner
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd ../airflow && make up
-    ```
-  
-  * Access the url http://localhost:8080/login/
-    ```
-      user: airflow
-      pass: airflow
-    ```
-  
-  * Run your pipeline
-    ![alt text](./assets/airflow_pipeline.png)
-    ![alt text](./assets/airflow_pipeline_detailed.png)
+  ```sh
+  cd ../jupyter && make up
+  ```
+* Access the url http://localhost:8888
+* At the `/work/nba_analisy.ipynb` you can see the table at bronze layer with their respective schema
 
-7. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
+#### 8. Trino – Distributed SQL query engine for fast, interactive analytics across multiple data sources.
 
-  * Run the comamnd at the terminal to up the containner
-    ```sh
-      cd ../jupyter && make up
-    ```
+#### 9. Kyuubi – Distributed multi-tenant JDBC server for Apache Spark.
 
-  * Access the url http://localhost:8888
+#### 10. Kafka – Distributed event streaming platform for building real-time data pipelines and applications.
 
-  * At the `/work/nba_analisy.ipynb` you can see the table at bronze layer with their respective schema
+#### 11. Debezium – Distributed platform for change data capture (CDC), streaming real-time changes from databases to other systems.
 
-8. Trino – Distributed SQL query engine for fast, interactive analytics across multiple data sources.
-
-9. Kyuubi – Distributed multi-tenant JDBC server for Apache Spark.
-
-10. Kafka – Distributed event streaming platform for building real-time data pipelines and applications.
-
-11. Debezium – Distributed platform for change data capture (CDC), streaming real-time changes from databases to other systems.
-
-12. DBeaver – Database management and visualization tool.
+#### 12. DBeaver – Database management and visualization tool.
 
 ### Network
+
 To the data plataform comunicate with each other, it need a network
 
 ```sh
-  make network-create NETWORK=data-plataform
+make network-create NETWORK=data-plataform
 ```
-
