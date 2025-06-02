@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  spark-notebook:
+    build:
+      context: .
+      dockerfile: ./docker/spark-notebook/Dockerfile
+    container_name: spark-notebook
+    user: root
+    environment:
+      - JUPYTER_ENABLE_LAB="yes"
+      - GRANT_SUDO="yes"
+      - SFTP_HOST=sftp
+      - SFTP_PORT=22
+      - SFTP_USERNAME=foo
+      - SFTP_PASSWORD=pass
+      - SFTP_PATH=upload/synthetic/users
+    volumes:
+      - ./work:/home/jovyan/work
+      - ./jupyter-config/spark-defaults.conf:/usr/local/spark/conf/spark-defaults.conf
+    ports:
+      - "8888:8888"
+      - "4045:4040"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "netstat -tuln | grep 8888 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+networks:
+  default:
+    name: data-plataform
+    external: true

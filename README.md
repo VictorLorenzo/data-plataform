@@ -55,15 +55,69 @@ This is a fully open-source data platform designed for efficient data ingestion,
     ![alt text](./assets/Variables_set.png)
 
   * Change the password to LIST_SFTP AND FETCH_SFTP
+    `pass: Sftp_Userpass12!@`
     ![alt text](./assets/Password.png)
 
-  * 
+  * Run the pipeline
+    ![alt text](./assets/Start_pipeline_nifi.png)
 
+  * Watch your files in Minio
+    ![alt text](./assets/minio_landing.png)
 
 4. Spark – Distributed data processing and analytics engine.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd ../spark && make up
+    ```
+  
+  * Access http://localhost:8082/ to watch your spark workers
+    ![alt text](./assets/spark_workers.png)
+
 5. Hive – Data warehousing and querying for structured datasets.
-6. DBeaver – Database management and visualization tool.
-7. Airflow – Workflow orchestration for scheduling and monitoring data pipelines.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd ../hive && make up
+    ```
+
+6. Airflow – Workflow orchestration platform for authoring, scheduling, and monitoring data pipelines.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd ../airflow && make up
+    ```
+  
+  * Access the url http://localhost:8080/login/
+    ```
+      user: airflow
+      pass: airflow
+    ```
+  
+  * Run your pipeline
+    ![alt text](./assets/airflow_pipeline.png)
+    ![alt text](./assets/airflow_pipeline_detailed.png)
+
+7. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
+
+  * Run the comamnd at the terminal to up the containner
+    ```sh
+      cd ../jupyter && make up
+    ```
+
+  * Access the url http://localhost:8888
+
+  * At the `/work/nba_analisy.ipynb` you can see the table at bronze layer with their respective schema
+
+8. Trino – Distributed SQL query engine for fast, interactive analytics across multiple data sources.
+
+9. Kyuubi – Distributed multi-tenant JDBC server for Apache Spark.
+
+10. Kafka – Distributed event streaming platform for building real-time data pipelines and applications.
+
+11. Debezium – Distributed platform for change data capture (CDC), streaming real-time changes from databases to other systems.
+
+12. DBeaver – Database management and visualization tool.
 
 ### Network
 To the data plataform comunicate with each other, it need a network

@@ -1,0 +1,10 @@
+faker==25.2.0
+paramiko==3.4.0
+confluent-kafka==2.4.0
+pyspark==3.4.1
+delta-spark==2.4.0
+papermill==2.6.0
+matplotlib==3.7.5
+trino==0.330.0
+numpy==1.23.3
+minio==7.2.10
