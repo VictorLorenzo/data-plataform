@@ -47,7 +47,18 @@ This is a fully open-source data platform designed for efficient data ingestion,
   * At the nifi UI, upload your nifi template `./nifi/template/*.xml`
     ![alt text](./assets/nifiTemplateUpdate.png)
 
-  * Drag and drop to 
+  * Drag and drop to chose the uploaded template
+    ![alt text](./assets/SFTP_INGESTION.png)
+
+  * Access the template and set the variables of the platform
+    ![alt text](./assets/Variables.png)
+    ![alt text](./assets/Variables_set.png)
+
+  * Change the password to LIST_SFTP AND FETCH_SFTP
+    ![alt text](./assets/Password.png)
+
+  * 
+
 
 4. Spark – Distributed data processing and analytics engine.
 5. Hive – Data warehousing and querying for structured datasets.
