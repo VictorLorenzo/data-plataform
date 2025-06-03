@@ -2,6 +2,8 @@
 
 This is a fully open-source data platform designed for efficient data ingestion, processing, storage, and analytics. It integrates multiple services to provide a seamless data pipeline, from collection to visualization.
 
+![alt text](./assets/data_platform.png)
+
 ## Initial Setup
 
 ### All services must be started in the order below:
