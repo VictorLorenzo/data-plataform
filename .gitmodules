@@ -1,0 +1,3 @@
+[submodule "airflow/spark/tipyti"]
+	path = airflow/spark/tipyti
+	url = git@github.com:VictorLorenzo/data-framework.git

@@ -1,0 +1,56 @@
+version: "3.8"
+services:
+  trino-coordinator:
+    # image: trinodb/trino:436 - Imagem do trino
+    hostname: trino-coordinator
+    build:
+      context: .
+      dockerfile: ./trino-config/Dockerfile
+    user: root
+    container_name: trino-coordinator
+    entrypoint: /root/docker-entrypoint.sh
+    volumes:
+      - ./trino/install.properties:/root/install.properties
+      - ./trino/docker-entrypoint.sh:/root/docker-entrypoint.sh
+      - ./trino-config/catalog/deltalake.properties:/etc/trino/catalog/deltalake.properties
+      - ./trino-config/coordinator/config.properties:/etc/trino/config.properties
+    ports:
+      - 8099:8080
+
+  trino-worker-1:
+    container_name: trino-worker-1
+    hostname: trino-worker-1
+    build:
+      context: .
+      dockerfile: ./trino-config/Dockerfile
+    depends_on:
+      - trino-coordinator
+    volumes:
+      - ./trino-config/worker/config.properties:/etc/trino/config.properties
+
+  trino-worker-2:
+    container_name: trino-worker-2
+    hostname: trino-worker-2
+    build:
+      context: .
+      dockerfile: ./trino-config/Dockerfile
+    depends_on:
+      - trino-coordinator
+    volumes:
+      - ./trino-config/worker/config.properties:/etc/trino/config.properties
+
+  trino-worker-3:
+    container_name: trino-worker-3
+    hostname: trino-worker-3
+    build:
+      context: .
+      dockerfile: ./trino-config/Dockerfile
+    depends_on:
+      - trino-coordinator
+    volumes:
+      - ./trino-config/worker/config.properties:/etc/trino/config.properties
+
+networks:
+  default:
+    name: data-plataform
+    external: true
