@@ -15,6 +15,8 @@ pull:
 
 up:
 	docker compose up -d
+	docker exec -u 0 nifi bash -c "sed -i 's/nifi.content.repository.archive.max.usage.percentage=50%/nifi.content.repository.archive.max.usage.percentage=80%/' /opt/nifi/nifi-current/conf/nifi.properties"
+	docker restart nifi
 
 up-service:
 	docker compose up -d ${SERVICE} 
