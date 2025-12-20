@@ -40,7 +40,3 @@ network-remove:
 # make console SERVICE=service-name
 console:
 	docker compose exec ${SERVICE} bash
-
-# make login-trino-cli:
-login-trino-cli:
-	docker exec -it trino-coordinator /bin/bash -c "trino --server http://trino-coordinator:8080 --user test-user --catalog deltalake"

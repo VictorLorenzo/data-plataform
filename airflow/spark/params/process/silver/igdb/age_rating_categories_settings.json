@@ -25,7 +25,7 @@
         },
         "target": {
             "options": {
-                "primary_key": ["partida_id"],
+                "primary_key": ["id"],
                 "sequence_by": ["_silver_created_at"],
                 "mode": "append"
             }
