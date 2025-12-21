@@ -1,0 +1,34 @@
+{
+    "layer": "silver",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "platform_types",
+    "datalake_path": "s3a://datalake",
+    "step_raw_to_bronze": {
+        "source": {
+            "format": "avro",
+            "options": {
+              "inferSchema": "true"
+            }
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_bronze_created_at"],
+                "mode": "append"
+            }
+        }
+    },
+    "step_bronze_to_silver": {
+        "source": {
+            "format": "delta"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_silver_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}
