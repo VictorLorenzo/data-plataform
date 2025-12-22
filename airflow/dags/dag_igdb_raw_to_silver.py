@@ -48,7 +48,8 @@ def create_dag(dag_id, schedule, default_args, silver_settings_files):
         schedule_interval=schedule,
         start_date=days_ago(1),
         tags=['datalake', 'silver'],
-        catchup=False
+        catchup=False,
+        max_active_runs=1
     ) as dag:
 
         start = PythonOperator(
