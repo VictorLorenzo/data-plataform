@@ -1,0 +1,37 @@
+{
+    "catalogs": [
+        {
+            "user": "admin",
+            "catalog": ".*",
+            "allow": "all"
+        }
+    ],
+    "schemas": [
+        {
+            "user": "admin",
+            "catalog": ".*",
+            "schema": ".*",
+            "owner": true
+        }
+    ],
+    "tables":[
+        {
+            "user": "admin",
+            "catalog": ".*",
+            "schema":".*",
+            "table": ".*",
+            "privileges": ["SELECT", "INSERT", "DELETE", "UPDATE", "OWNERSHIP"]
+        }
+    ],
+    "procedures": [
+        {
+            "user": "admin",
+            "catalog": "deltalake",
+            "schema": "system",
+            "procedure": "vacuum",
+            "privileges": [
+                "EXECUTE"
+            ]
+        }
+    ]
+}

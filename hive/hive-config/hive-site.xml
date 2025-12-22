@@ -18,7 +18,7 @@
         <value>s3a://datalake</value>
     </property>
     <property>
-        <name>metastore.warehouse.dir</name>
+        <name>hive.metastore.warehouse.dir</name>
         <value>s3a://datalake/warehouse/</value>
     </property>
     <property>

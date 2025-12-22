@@ -34,8 +34,13 @@ This is a fully open-source data platform designed for efficient data ingestion,
 * Create an Access Key with this credentials
 
   ```
-  accessKey: nifi
-  secretKey: nifipass
+  accessKey: nifi,
+  secretKey: nifipass,
+  ```
+
+  ```
+  Access Key: trino
+  Secret Key: trinopass
   ```
 
 #### 3. NiFi – Automates data movement, ingestion and transformation.
@@ -94,6 +99,15 @@ This is a fully open-source data platform designed for efficient data ingestion,
 * Run your pipeline
   ![alt text](./assets/airflow_pipeline.png)
   ![alt text](./assets/airflow_pipeline_detailed.png)
+
+Important for execute Spark Jobs.
+
+Configure the Spark connection: In Airflow, go to Admin -> Connections and add a new connection. Set the Conn Id as spark_default, the Conn Type as Spark, and the Host as the address of your Spark master.
+```
+Connection Id: spark_default
+Connection Type: Spark
+Host: spark://spark-master:7077
+```
 
 #### 7. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
 
