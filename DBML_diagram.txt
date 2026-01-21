@@ -1,0 +1,988 @@
+// 1. Games Table (Central Table)
+Table games {
+  // -- 1. Core Entity --
+  id integer [primary key]
+  name varchar
+  slug varchar
+  url varchar
+  checksum varchar
+  created_at bigint
+  updated_at bigint
+
+  // -- 2. Classification & Metadata --
+  genres int[]
+  themes int[]
+  keywords int[]
+  game_modes int[]
+  player_perspectives int[]
+  game_type integer
+  alternative_names int[]
+  multiplayer_modes int[]
+  summary text
+  storyline text
+  tags int[]
+  
+  // -- 3. Media, Assets & Links --
+  cover integer
+  artworks int[]
+  screenshots int[]
+  videos int[]
+  websites int[]
+
+  // -- 4. Companies --
+  involved_companies int[]
+
+  // -- 5. Platforms --
+  platforms int[]
+  game_engines int[]
+
+  // -- 6. Releases --
+  first_release_date bigint
+  release_dates int[]
+  language_supports int[]
+
+  // -- 7. Ratings --
+  age_ratings int[]
+  rating decimal
+  rating_count integer
+  aggregated_rating decimal
+  aggregated_rating_count integer
+  total_rating decimal
+  total_rating_count integer
+
+  // -- 8. Collections --
+  collections int[]
+  bundles int[]
+  similar_games int[]
+
+  // -- 10. External --
+  external_games int[]
+}
+
+// 2. Age Ratings
+Table age_ratings {
+  id integer [primary key]
+  checksum varchar
+  organization integer
+  rating_category integer
+  rating_content_descriptions int[]
+}
+
+// 3. Alternative Names
+Table alternative_names {
+  id integer [primary key]
+  game integer
+  name varchar
+  checksum varchar
+}
+
+// 4. Artworks
+Table artworks {
+  id integer [primary key]
+  game integer
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+  checksum varchar
+  artwork_type integer
+}
+
+// 5. Covers
+Table covers {
+  id integer [primary key]
+  game integer
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+  checksum varchar
+}
+
+// 6. External Games
+Table external_games {
+  id integer [primary key]
+  created_at bigint
+  game integer
+  name varchar
+  uid varchar
+  updated_at bigint
+  checksum varchar
+  external_game_source integer
+}
+
+// 7. Game Engines
+Table game_engines {
+  id integer [primary key]
+  companies int[]
+  created_at bigint
+  description text
+  logo integer
+  name varchar
+  platforms int[]
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 8. Game Modes
+Table game_modes {
+  id integer [primary key]
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 9. Genres
+Table genres {
+  id integer [primary key]
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 10. Involved Companies
+Table involved_companies {
+  id integer [primary key]
+  company integer
+  created_at bigint
+  developer boolean
+  game integer
+  porting boolean
+  publisher boolean
+  supporting boolean
+  updated_at bigint
+  checksum varchar
+}
+
+// 11. Keywords
+Table keywords {
+  id integer [primary key]
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 12. Multiplayer Modes
+Table multiplayer_modes {
+  id integer [primary key]
+  campaigncoop boolean
+  dropin boolean
+  game integer
+  lancoop boolean
+  offlinecoop boolean
+  onlinecoop boolean
+  onlinemax integer
+  platform integer
+  splitscreen boolean
+  checksum varchar
+}
+
+// 13. Platforms
+Table platforms {
+  id integer [primary key]
+  abbreviation varchar
+  alternative_name varchar
+  created_at bigint
+  name varchar
+  platform_logo integer
+  platform_family integer
+  slug varchar
+  summary text
+  updated_at bigint
+  url varchar
+  versions int[]
+  websites int[]
+  checksum varchar
+  platform_type integer
+}
+
+// 14. Player Perspectives
+Table player_perspectives {
+  id integer [primary key]
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 15. Release Dates
+Table release_dates {
+  id integer [primary key]
+  created_at bigint
+  date bigint
+  game integer
+  human varchar
+  m integer
+  platform integer
+  updated_at bigint
+  y integer
+  checksum varchar
+  date_format integer
+  release_region integer
+  status integer
+}
+
+// 16. Screenshots
+Table screenshots {
+  id integer [primary key]
+  game integer
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+  checksum varchar
+}
+
+// 17. Themes
+Table themes {
+  id integer [primary key]
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 18. Game Videos
+Table game_videos {
+  id integer [primary key]
+  game integer
+  name varchar
+  video_id varchar
+  checksum varchar
+}
+
+// 19. Websites
+Table websites {
+  id integer [primary key]
+  game integer
+  trusted boolean
+  url varchar
+  checksum varchar
+  type integer
+}
+
+// 20. Language Supports
+Table language_supports {
+  id integer [primary key]
+  game integer
+  language integer
+  language_support_type integer
+  created_at bigint
+  updated_at bigint
+  checksum varchar
+}
+
+// 21. Collections
+Table collections {
+  id integer [primary key]
+  created_at bigint
+  games int[]
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+  type integer
+}
+
+// 22. Game Types
+Table game_types {
+  id integer [primary key]
+  created_at bigint
+  type varchar
+  updated_at bigint
+  checksum varchar
+}
+
+// 23. Age Rating Content Descriptions V2
+Table age_rating_content_descriptions_v2 {
+  id integer [primary key]
+  created_at bigint
+  description varchar
+  description_type integer
+  organization integer
+  updated_at bigint
+  checksum varchar
+}
+
+// 24. Characters
+Table characters {
+  id integer [primary key]
+  character_gender integer
+  character_species integer
+  checksum varchar
+  created_at bigint
+  games int[]
+  mug_shot integer
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+}
+
+// 25. Companies
+Table companies {
+  id integer [primary key]
+  change_date_category integer
+  changed_company_id integer
+  country integer
+  created_at bigint
+  description text
+  developed int[]
+  logo integer
+  name varchar
+  published int[]
+  slug varchar
+  start_date bigint
+  updated_at bigint
+  url varchar
+  websites int[]
+  checksum varchar
+  status integer
+  start_date_format integer
+}
+
+// 26. Events
+Table events {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  description text
+  event_logo integer
+  event_networks int[]
+  games int[]
+  live_stream_url varchar
+  name varchar
+  slug varchar
+  start_time bigint
+  time_zone varchar
+  updated_at bigint
+  videos int[]
+}
+
+// 27. Franchises
+Table franchises {
+  id integer [primary key]
+  created_at bigint
+  games int[]
+  name varchar
+  slug varchar
+  updated_at bigint
+  url varchar
+  checksum varchar
+}
+
+// 28. Game Localizations
+Table game_localizations {
+  id integer [primary key]
+  checksum varchar
+  cover integer
+  created_at bigint
+  game integer
+  name varchar
+  region integer
+  updated_at bigint
+}
+
+// 29. Game Versions
+Table game_versions {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  features int[]
+  game integer
+  games int[]
+  updated_at bigint
+  url varchar
+}
+
+// 30. Search
+Table search {
+  id integer [primary key]
+  alternative_name varchar
+  game integer
+  name varchar
+  published_at bigint
+}
+
+// 31. Age Rating Categories
+Table age_rating_categories {
+  id integer [primary key]
+  created_at bigint
+  organization integer
+  rating varchar
+  updated_at bigint
+  checksum varchar
+}
+
+// 32. Age Rating Content Description Types
+Table age_rating_content_description_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+}
+
+// 33. Age Rating Organizations
+Table age_rating_organizations {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 34. Artwork Types
+Table artwork_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  slug varchar
+  updated_at bigint
+}
+
+// 35. Collection Membership Types
+Table collection_membership_types {
+  id integer [primary key]
+  allowed_collection_type integer
+  checksum varchar
+  created_at bigint
+  description varchar
+  name varchar
+  updated_at bigint
+}
+
+// 36. Collection Relation Types
+Table collection_relation_types {
+  id integer [primary key]
+  allowed_child_type integer
+  allowed_parent_type integer
+  checksum varchar
+  created_at bigint
+  description varchar
+  name varchar
+  updated_at bigint
+}
+
+// 37. Collection Types
+Table collection_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  description varchar
+  name varchar
+  updated_at bigint
+}
+
+// 38. Company Statuses
+Table company_statuses {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 39. Date Formats
+Table date_formats {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  format varchar
+  updated_at bigint
+}
+
+// 40. External Game Sources
+Table external_game_sources {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 41. Game Release Formats
+Table game_release_formats {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  format varchar
+  updated_at bigint
+}
+
+// 42. Game Statuses
+Table game_statuses {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  status varchar
+  updated_at bigint
+}
+
+// 43. Language Support Types
+Table language_support_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 44. Network Types
+Table network_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  event_networks int[]
+  name varchar
+  updated_at bigint
+}
+
+// 45. Platform Types
+Table platform_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 46. Popularity Types
+Table popularity_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  external_popularity_source integer
+  name varchar
+  popularity_source integer
+  updated_at bigint
+}
+
+// 47. Release Date Regions
+Table release_date_regions {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  region varchar
+  updated_at bigint
+}
+
+// 48. Release Date Statuses
+Table release_date_statuses {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  description varchar
+  name varchar
+  updated_at bigint
+}
+
+// 49. Website Types
+Table website_types {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  type varchar
+  updated_at bigint
+}
+
+// 50. Character Genders
+Table character_genders {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 51. Character Mug Shots
+Table character_mug_shots {
+  id integer [primary key]
+  checksum varchar
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+}
+
+// 52. Character Species
+Table character_species {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  name varchar
+  updated_at bigint
+}
+
+// 53. Collection Memberships
+Table collection_memberships {
+  id integer [primary key]
+  checksum varchar
+  collection integer
+  created_at bigint
+  game integer
+  type integer
+  updated_at bigint
+}
+
+// 54. Collection Relations
+Table collection_relations {
+  id integer [primary key]
+  checksum varchar
+  child_collection integer
+  created_at bigint
+  parent_collection integer
+  type integer
+  updated_at bigint
+}
+
+// 55. Company Websites
+Table company_websites {
+  id integer [primary key]
+  checksum varchar
+  trusted boolean
+  type integer
+  url varchar
+}
+
+// 56. Event Networks
+Table event_networks {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  event integer
+  network_type integer
+  updated_at bigint
+  url varchar
+}
+
+// 57. Game Time To Beats
+Table game_time_to_beats {
+  id integer [primary key]
+  checksum varchar
+  completely integer
+  count integer
+  created_at bigint
+  game_id integer
+  hastily integer
+  normally integer
+  updated_at bigint
+}
+
+// 58. Game Version Features
+Table game_version_features {
+  id integer [primary key]
+  checksum varchar
+  description varchar
+  position integer
+  title varchar
+}
+
+// 59. Game Version Feature Values
+Table game_version_feature_values {
+  id integer [primary key]
+  checksum varchar
+  game integer
+  game_feature integer
+  included_feature integer
+}
+
+// 60. Languages
+Table languages {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  locale varchar
+  name varchar
+  native_name varchar
+  updated_at bigint
+}
+
+// 61. Platform Families
+Table platform_families {
+  id integer [primary key]
+  checksum varchar
+  name varchar
+  slug varchar
+}
+
+// 62. Platform Versions
+Table platform_versions {
+  id integer [primary key]
+  checksum varchar
+  companies int[]
+  name varchar
+  platform_logo integer
+  platform_version_release_dates int[]
+  slug varchar
+  summary varchar
+  url varchar
+}
+
+// 63. Platform Version Companies
+Table platform_version_companies {
+  id integer [primary key]
+  checksum varchar
+  company integer
+  developer boolean
+  manufacturer boolean
+}
+
+// 64. Platform Version Release Dates
+Table platform_version_release_dates {
+  id integer [primary key]
+  checksum varchar
+  created_at bigint
+  date bigint
+  date_format integer
+  human varchar
+  m integer
+  release_region integer
+  updated_at bigint
+  y integer
+}
+
+// 65. Platform Websites
+Table platform_websites {
+  id integer [primary key]
+  checksum varchar
+  trusted boolean
+  type integer
+  url varchar
+}
+
+// 66. Popularity Primitives
+Table popularity_primitives {
+  id integer [primary key]
+  calculated_at bigint
+  created_at bigint
+  external_popularity_source integer
+  game_id integer
+  popularity_source integer
+  popularity_type integer
+  updated_at bigint
+  value decimal
+}
+
+// 67. Regions
+Table regions {
+  id integer [primary key]
+  category varchar
+  checksum varchar
+  created_at bigint
+  identifier varchar
+  name varchar
+  updated_at bigint
+}
+
+// 68. Company Logos
+Table company_logos {
+  id integer [primary key]
+  alpha_channel boolean
+  animated boolean
+  checksum varchar
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+}
+
+// 69. Event Logos
+Table event_logos {
+  id integer [primary key]
+  alpha_channel boolean
+  animated boolean
+  checksum varchar
+  created_at bigint
+  event integer
+  height integer
+  image_id varchar
+  updated_at bigint
+  url varchar
+  width integer
+}
+
+// 70. Game Engine Logos
+Table game_engine_logos {
+  id integer [primary key]
+  alpha_channel boolean
+  animated boolean
+  checksum varchar
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+}
+
+// 71. Platform Logos
+Table platform_logos {
+  id integer [primary key]
+  alpha_channel boolean
+  animated boolean
+  checksum varchar
+  height integer
+  image_id varchar
+  url varchar
+  width integer
+}
+
+// --- RELATIONSHIPS (JOINS) ---
+
+// 1. Age Rating Relationships
+Ref: games.age_ratings > age_ratings.id
+Ref: age_ratings.rating_category - age_rating_categories.id
+Ref: age_ratings.organization > age_rating_organizations.id
+Ref: age_ratings.rating_content_descriptions > age_rating_content_descriptions_v2.id
+Ref: age_rating_content_descriptions_v2.description_type > age_rating_content_description_types.id
+Ref: age_rating_content_descriptions_v2.organization > age_rating_organizations.id
+Ref: age_rating_categories.organization > age_rating_organizations.id
+
+// 2. Metadata Relationships
+Ref: games.alternative_names > alternative_names.id
+Ref: alternative_names.game > games.id
+Ref: games.keywords > keywords.id
+Ref: games.themes > themes.id
+Ref: games.game_type - game_types.id
+Ref: game_time_to_beats.game_id > games.id
+
+// 3. Media Relationships (Artworks, Covers, Screenshots, Videos)
+Ref: games.artworks > artworks.id
+Ref: artworks.game > games.id
+Ref: artworks.artwork_type > artwork_types.id
+Ref: games.cover - covers.id
+Ref: covers.game > games.id
+Ref: games.screenshots > screenshots.id
+Ref: screenshots.game > games.id
+Ref: games.videos > game_videos.id
+Ref: game_videos.game > games.id
+
+// 4. External Data Relationships
+Ref: games.external_games > external_games.id
+Ref: external_games.game > games.id
+Ref: external_games.external_game_source > external_game_sources.id
+
+// 5. Tech Relationships (Engines)
+Ref: games.game_engines > game_engines.id
+Ref: game_engines.companies > companies.id
+Ref: game_engines.logo > game_engine_logos.id
+
+// 6. Gameplay Relationships (Modes, Genres)
+Ref: games.game_modes > game_modes.id
+Ref: games.genres > genres.id
+Ref: games.multiplayer_modes > multiplayer_modes.id
+Ref: multiplayer_modes.game > games.id
+Ref: games.player_perspectives > player_perspectives.id
+
+// 7. Company Relationships
+Ref: games.involved_companies > involved_companies.id
+Ref: involved_companies.game > games.id
+Ref: involved_companies.company > companies.id
+Ref: companies.published > games.id
+Ref: companies.developed > games.id
+Ref: companies.changed_company_id - companies.id
+Ref: companies.status > company_statuses.id
+Ref: companies.start_date_format > date_formats.id
+Ref: companies.websites > company_websites.id
+Ref: company_websites.type > website_types.id
+Ref: companies.logo > company_logos.id
+Ref: companies.country > regions.id
+
+// 8. Platform Relationships
+Ref: games.platforms > platforms.id
+Ref: platforms.platform_type > platform_types.id
+Ref: platforms.platform_family > platform_families.id
+Ref: platforms.versions > platform_versions.id
+Ref: platforms.platform_logo > platform_logos.id
+Ref: platforms.websites > platform_websites.id
+Ref: multiplayer_modes.platform > platforms.id
+Ref: game_engines.platforms > platforms.id
+Ref: release_dates.platform > platforms.id
+
+// Platform Versions
+Ref: platform_versions.platform_logo > platform_logos.id
+Ref: platform_versions.companies > platform_version_companies.id
+Ref: platform_versions.platform_version_release_dates > platform_version_release_dates.id
+Ref: platform_version_companies.company > companies.id
+Ref: platform_version_release_dates.date_format > date_formats.id
+Ref: platform_version_release_dates.release_region > regions.id
+Ref: platform_websites.type > website_types.id
+
+// 9. Release Date Relationships
+Ref: games.release_dates > release_dates.id
+Ref: release_dates.game > games.id
+Ref: release_dates.date_format > date_formats.id
+Ref: release_dates.release_region > release_date_regions.id
+Ref: release_dates.status > release_date_statuses.id
+
+// 10. Website Relationships
+Ref: games.websites > websites.id
+Ref: websites.game > games.id
+Ref: websites.type > website_types.id
+
+// 11. Localization & Language Relationships
+Ref: games.language_supports > language_supports.id
+Ref: language_supports.game > games.id
+Ref: language_supports.language_support_type > language_support_types.id
+Ref: language_supports.language > languages.id
+Ref: game_localizations.game > games.id
+Ref: game_localizations.cover > covers.id
+Ref: game_localizations.region > regions.id
+
+// 12. Collections & Franchises Relationships
+Ref: games.collections > collections.id
+Ref: collections.games > games.id
+Ref: collections.type > collection_types.id
+Ref: collection_membership_types.allowed_collection_type > collection_types.id
+Ref: collection_relation_types.allowed_child_type > collection_types.id
+Ref: collection_relation_types.allowed_parent_type > collection_types.id
+Ref: collection_memberships.collection > collections.id
+Ref: collection_memberships.game > games.id
+Ref: collection_memberships.type > collection_membership_types.id
+Ref: collection_relations.child_collection - collections.id
+Ref: collection_relations.parent_collection - collections.id
+Ref: collection_relations.type > collection_relation_types.id
+Ref: franchises.games > games.id
+
+// 13. Character Relationships
+Ref: characters.games > games.id
+Ref: characters.character_gender > character_genders.id
+Ref: characters.mug_shot > character_mug_shots.id
+Ref: characters.character_species > character_species.id
+
+// 14. Event Relationships
+Ref: events.games > games.id
+Ref: events.videos > game_videos.id
+Ref: events.event_networks > event_networks.id
+Ref: event_networks.network_type > network_types.id
+Ref: events.event_logo > event_logos.id
+Ref: event_logos.event > events.id
+
+// 15. Game Versions Relationships
+Ref: game_versions.game > games.id
+Ref: game_versions.games > games.id
+Ref: game_versions.features > game_version_feature_values.id
+Ref: game_version_feature_values.game_feature > game_version_features.id
+Ref: game_version_feature_values.game > games.id
+
+// 16. Search & Popularity Relationships
+Ref: search.game > games.id
+Ref: popularity_primitives.game_id > games.id
+Ref: popularity_primitives.popularity_type > popularity_types.id
