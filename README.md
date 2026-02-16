@@ -100,22 +100,31 @@ https://api-docs.igdb.com/#getting-started
 * Wait and watch the proccess, you also can see the files beign ingested at your lading-bucket
   ![alt text](./assets/minio_landing.png)
 
-#### 4. Spark – Distributed data processing and analytics engine.
+#### 4. Unity Catalog – Open-source data catalog with 3-level namespace (catalog.schema.table) for unified data governance.
 
-* Run the comamand at the terminal to up the containner
+* Run the command at the terminal to start the containers
+  ```sh
+  cd ../unity-catalog && make up
+  ```
+* Wait for the init container to finish (creates medallion catalogs and schemas automatically)
+* Access the Unity Catalog UI at http://localhost:3001
+* Access the REST API at http://localhost:8087/api/2.1/unity-catalog/catalogs
+* Access the Swagger docs at http://localhost:8087/docs/#/
+  ```
+  Catalogs created: landing, bronze, silver, gold
+  Schemas: default (in each catalog)
+  ```
+
+#### 5. Spark – Distributed data processing and analytics engine (Spark 3.5.3 + Delta Lake 3.2.1).
+
+* Run the command at the terminal to start the containers
 
   ```sh
   cd ../spark && make up
   ```
 * Access http://localhost:8082/ to watch your spark workers
   ![alt text](./assets/spark_workers.png)
-
-#### 5. Hive – Data warehousing and querying for structured datasets.
-
-* Run the comamnd at the terminal to up the containner
-  ```sh
-  cd ../hive && make up
-  ```
+* Spark is pre-configured with Unity Catalog as the default catalog
 
 #### 6. Airflow – Workflow orchestration platform for authoring, scheduling, and monitoring data pipelines.
 
@@ -173,11 +182,11 @@ Port: 7077
   Driver: Trino
   Host: trino-coordinator
   port: 8080
-  database: deltalake
+  database: unity
   user: admin
   ```
 
-* Now you're connected to the Hive Catalog
+* Now you're connected to the Unity Catalog
   ![alt text](./assets/DBeaver_Hive_Catalog.png)
 
 #### 9. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
@@ -193,7 +202,7 @@ Port: 7077
 ### More TODO
 In the future i want to implement some ideas to automate some proccess:
 
-* Use Unity Catalog for data governance and data quality, also as catalog
+* ~~Use Unity Catalog for data governance and data quality, also as catalog~~ ☑️ (Implemented - Unity Catalog OSS)
 
 * Implement a more generic way to upload your ETL pipeline using json with jinja2 ☑️(Project in Beta)
 

@@ -1,0 +1,73 @@
+version: "3"
+
+services:
+  postgres-uc:
+    hostname: postgres-uc
+    container_name: postgres-uc
+    image: postgres:13
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: uc_admin
+      POSTGRES_PASSWORD: uc_admin
+      POSTGRES_DB: unity_catalog_db
+    volumes:
+      - uc_catalog:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uc_admin -d unity_catalog_db"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  unity-catalog-server:
+    hostname: unity-catalog-server
+    container_name: unity-catalog-server
+    image: unitycatalog/unitycatalog:latest
+    ports:
+      - "8087:8080"
+    volumes:
+      - ./config/server.properties:/opt/unitycatalog/etc/conf/server.properties
+      - ./config/hibernate.properties:/opt/unitycatalog/etc/conf/hibernate.properties
+      - uc_data:/opt/unitycatalog/etc/data
+    depends_on:
+      postgres-uc:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl --fail http://localhost:8080/api/2.1/unity-catalog/catalogs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  unity-catalog-ui:
+    hostname: unity-catalog-ui
+    container_name: unity-catalog-ui
+    image: unitycatalog/unitycatalog-ui:main
+    ports:
+      - "3001:3000"
+    environment:
+      UC_API_URL: http://unity-catalog-server:8080
+    depends_on:
+      - unity-catalog-server
+
+  uc-init:
+    hostname: uc-init
+    container_name: uc-init
+    image: curlimages/curl:latest
+    depends_on:
+      unity-catalog-server:
+        condition: service_healthy
+    volumes:
+      - ./scripts/init-uc.sh:/init-uc.sh
+    entrypoint: ["sh", "/init-uc.sh"]
+
+volumes:
+  uc_catalog:
+    driver: local
+  uc_data:
+    driver: local
+
+networks:
+  default:
+    name: data-plataform
+    external: true
