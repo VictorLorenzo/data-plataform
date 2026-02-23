@@ -187,9 +187,8 @@ Standard Makefile following project pattern (same as other services).
 ```dockerfile
 FROM bitnami/spark:3.5.3
 USER root
-ENV LIVY_HOME /opt/bitnami/livy
 
-RUN apt-get update && apt install curl unzip -y
+RUN apt-get update && apt install curl -y
 
 COPY ./start.sh ./start.sh
 RUN chmod +x start.sh
@@ -211,19 +210,10 @@ RUN curl "https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.
     && curl "https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-spark_2.12/0.2.0/unitycatalog-spark_2.12-0.2.0.jar" \
       -o /opt/bitnami/spark/jars/unitycatalog-spark_2.12-0.2.0.jar
 
-# Install Livy 0.8.0
-WORKDIR /opt/bitnami/
-RUN curl "https://dlcdn.apache.org/incubator/livy/0.8.0-incubating/apache-livy-0.8.0-incubating_2.12-bin.zip" -O \
-    && unzip "apache-livy-0.8.0-incubating_2.12-bin" \
-    && rm -rf "apache-livy-0.8.0-incubating_2.12-bin.zip" \
-    && mv "apache-livy-0.8.0-incubating_2.12-bin" $LIVY_HOME \
-    && mkdir -p $LIVY_HOME/logs \
-    && chown -R 1001:1001 $LIVY_HOME
-
 WORKDIR /opt/bitnami/spark/
 ```
 
-**Note**: Base image changes from `bitnamilegacy/spark:3.4.1` to `bitnami/spark:3.5.3`. Livy upgraded from `2.11-bin` to `2.12-bin` for Scala 2.12 compatibility.
+**Note**: Base image changes from `bitnamilegacy/spark:3.4.1` to `bitnami/spark:3.5.3`.
 
 ### `spark/requirements.txt`:
 ```
@@ -262,10 +252,6 @@ Remove the `hive-site.xml` volume mount from spark-master:
     volumes:
       - ./spark-apps:/opt/spark-apps/
       - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
-      # REMOVED: ./spark-config/hive-site.xml (no longer needed with UC)
-      - ./conf/:/opt/bitnami/livy/conf/
-      - ./target/:/target_livy/
-      - ./data/:/data_livy/
 ```
 
 ---

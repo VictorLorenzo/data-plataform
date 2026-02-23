@@ -12,11 +12,7 @@ services:
     volumes:
       - ./spark-apps:/opt/spark-apps/
       - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
-      - ./conf/:/opt/bitnami/livy/conf/
-      - ./target/:/target_livy/
-      - ./data/:/data_livy/
     ports:
-      - '8998:8998'
       - "8082:8080"
       - "7077:7077"
       - "4040:4040"
