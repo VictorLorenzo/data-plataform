@@ -40,10 +40,10 @@ services:
       /usr/bin/mc anonymous set public myminio/datalake-silver;
       /usr/bin/mc mb myminio/datalake-gold;
       /usr/bin/mc anonymous set public myminio/datalake-gold;
-      /usr/bin/mc mb myminio/datalake/warehouse;
-      /usr/bin/mc anonymous set public myminio/datalake/warehouse;
       /usr/bin/mc mb myminio/datalake-uc;
       /usr/bin/mc anonymous set public myminio/datalake-uc;
+      /usr/bin/mc mb myminio/datalake-uc/warehouse;
+      /usr/bin/mc anonymous set public myminio/datalake-uc/warehouse;
       "
 
 networks:
