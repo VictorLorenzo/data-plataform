@@ -22,13 +22,14 @@ services:
   unity-catalog-server:
     hostname: unity-catalog-server
     container_name: unity-catalog-server
-    image: unitycatalog/unitycatalog:latest
+    image: unitycatalog/unitycatalog:v0.2.1
     ports:
       - "8087:8080"
+      - "3001:3000"
     volumes:
-      - ./config/server.properties:/opt/unitycatalog/etc/conf/server.properties
-      - ./config/hibernate.properties:/opt/unitycatalog/etc/conf/hibernate.properties
-      - uc_data:/opt/unitycatalog/etc/data
+      - ./config/server.properties:/home/unitycatalog/etc/conf/server.properties
+      - ./config/hibernate.properties:/home/unitycatalog/etc/conf/hibernate.properties
+      - uc_data:/home/unitycatalog/etc/data
     depends_on:
       postgres-uc:
         condition: service_healthy
@@ -38,15 +39,16 @@ services:
       timeout: 10s
       retries: 10
       start_period: 30s
+    networks:
+      default:
+        aliases:
+          - server
 
   unity-catalog-ui:
-    hostname: unity-catalog-ui
     container_name: unity-catalog-ui
     image: unitycatalog/unitycatalog-ui:main
-    ports:
-      - "3001:3000"
-    environment:
-      UC_API_URL: http://unity-catalog-server:8080
+    # This forces the UI to share the exact same 'localhost' as the server
+    network_mode: "service:unity-catalog-server"
     depends_on:
       - unity-catalog-server
 
