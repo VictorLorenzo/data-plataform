@@ -38,6 +38,8 @@ RUN curl -O https://repo1.maven.org/maven2/software/amazon/awssdk/s3/2.18.41/s3-
     && mv kyuubi-hive-jdbc-shaded-1.9.1.jar /usr/local/spark/jars \
     && mv kyuubi-extension-spark-jdbc-dialect_2.12-1.9.1.jar /usr/local/spark/jars \
     && mv spark-avro_2.12-3.5.3.jar /usr/local/spark/jars \
-    && mv unitycatalog-spark_2.12-0.2.0.jar /usr/local/spark/jars
+    && mv unitycatalog-spark_2.12-0.2.0.jar /usr/local/spark/jars \
+    && curl -O https://repo1.maven.org/maven2/io/delta/delta-iceberg_2.12/3.2.1/delta-iceberg_2.12-3.2.1.jar \
+    && mv delta-iceberg_2.12-3.2.1.jar /usr/local/spark/jars
 
 COPY jupyter-config/spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf

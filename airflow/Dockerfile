@@ -28,7 +28,9 @@ RUN curl -fSL -o ${SPARK_JARS_DIR}/delta-spark_2.12-3.2.1.jar \
     curl -fSL -o ${SPARK_JARS_DIR}/unitycatalog-spark_2.12-0.2.1.jar \
       https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-spark_2.12/0.2.1/unitycatalog-spark_2.12-0.2.1.jar && \
     curl -fSL -o ${SPARK_JARS_DIR}/unitycatalog-client-0.2.1.jar \
-      https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-client/0.2.1/unitycatalog-client-0.2.1.jar
+      https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-client/0.2.1/unitycatalog-client-0.2.1.jar && \
+    curl -fSL -o ${SPARK_JARS_DIR}/delta-iceberg_2.12-3.2.1.jar \
+      https://repo1.maven.org/maven2/io/delta/delta-iceberg_2.12/3.2.1/delta-iceberg_2.12-3.2.1.jar
 
 RUN chown -R airflow:0 ${SPARK_JARS_DIR}
 

@@ -176,6 +176,10 @@ services:
       # Required to handle warm shutdown of the celery workers properly
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
+      # Hadoop Configuration loads *-site.xml files from this directory.
+      # The hive-site.xml here configures DataNucleus auto-create for the
+      # embedded Hive Metastore (Derby) used by Delta IcebergConverter.
+      HADOOP_CONF_DIR: "/opt/airflow/config"
     restart: always
     depends_on:
       <<: *airflow-common-depends-on

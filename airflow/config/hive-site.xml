@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Minimal hive-site.xml for the embedded Hive Metastore (Derby) used by
+  Delta Lake's IcebergConverter post-commit hook.
+
+  The IcebergConverter initializes an embedded HMS that uses DataNucleus/JDO
+  for persistence. DataNucleus reads its configuration from the JDO
+  PersistenceManagerFactory, which in turn is populated from HiveConf.
+  HiveConf loads this file from the classpath.
+
+  NOTE: javax.jdo.option.ConnectionURL and derby.system.home are set
+  programmatically per-job in processing_utils.py (each concurrent Spark
+  job needs a unique Derby directory to avoid file-lock conflicts).
+  The ConnectionURL here serves as a fallback default.
+-->
+<configuration>
+    <!-- DataNucleus auto-create schema tables (DBS, TBLS, etc.) -->
+    <property>
+        <name>datanucleus.schema.autoCreateTables</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>datanucleus.schema.autoCreateAll</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>true</value>
+    </property>
+
+    <!-- Disable schema verification so HMS doesn't reject a fresh Derby DB -->
+    <property>
+        <name>hive.metastore.schema.verification</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hive.metastore.schema.verification.record.version</name>
+        <value>false</value>
+    </property>
+
+    <!-- ConnectionURL is set dynamically per-job in spark_session.py
+         with an absolute path to avoid derby.system.home issues.
+         Only the driver name is static. -->
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>org.apache.derby.jdbc.EmbeddedDriver</value>
+    </property>
+
+    <!-- Use embedded (local) metastore, not a remote Thrift server -->
+    <property>
+        <name>hive.metastore.uris</name>
+        <value></value>
+    </property>
+
+    <!-- Disable Hive transactional locking.
+         The TxnHandler tries to acquire locks via NEXT_LOCK_ID / HIVE_LOCKS
+         tables, which are NOT auto-created by DataNucleus (they are part of
+         the Hive schema init SQL, not JDO-managed classes).
+         Using DummyTxnManager disables the lock manager entirely so the
+         IcebergConverter's HiveTableOperations.doCommit() doesn't try to
+         acquire table locks. This is safe for our embedded single-process HMS. -->
+    <property>
+        <name>hive.support.concurrency</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hive.txn.manager</name>
+        <value>org.apache.hadoop.hive.ql.lockmgr.DummyTxnManager</value>
+    </property>
+</configuration>
