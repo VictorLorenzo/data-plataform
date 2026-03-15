@@ -22,10 +22,15 @@ services:
   unity-catalog-server:
     hostname: unity-catalog-server
     container_name: unity-catalog-server
-    image: unitycatalog/unitycatalog:v0.2.1
+    image: unitycatalog/unitycatalog:v0.2.1-minio
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
     ports:
       - "8087:8080"
       - "3001:3000"
+    environment:
+      S3_ENDPOINT: "http://minio:9000"
     volumes:
       - ./config/server.properties:/home/unitycatalog/etc/conf/server.properties
       - ./config/hibernate.properties:/home/unitycatalog/etc/conf/hibernate.properties
