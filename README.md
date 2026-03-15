@@ -182,7 +182,6 @@ Port: 7077
   Driver: Trino
   Host: trino-coordinator
   port: 8080
-  database: unity
   user: admin
   ```
 
