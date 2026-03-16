@@ -129,6 +129,32 @@ services:
       timeout: 10s
       retries: 3
 
+  spark-history:
+    hostname: spark-history
+    container_name: spark-history
+    build:
+      context: .
+      dockerfile: ./docker/spark/Dockerfile
+    command: bin/spark-class org.apache.spark.deploy.history.HistoryServer
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_HISTORY_OPTS: >-
+        -Dspark.history.fs.logDirectory=s3a://datalake-landing/spark-events
+        -Dspark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+        -Dspark.hadoop.fs.s3a.endpoint=http://minio:9000
+        -Dspark.hadoop.fs.s3a.access.key=accesskey
+        -Dspark.hadoop.fs.s3a.secret.key=secretkey
+        -Dspark.hadoop.fs.s3a.path.style.access=true
+        -Dspark.hadoop.fs.s3a.connection.ssl.enabled=false
+    ports:
+      - "18080:18080"
+    healthcheck:
+      test: curl --fail -I http://$(hostname -i || echo localhost):18080 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 volumes:
   spark_cache: {}
 

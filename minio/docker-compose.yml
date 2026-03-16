@@ -34,6 +34,8 @@ services:
       /usr/bin/mc alias set myminio http://minio:9000 accesskey secretkey;
       /usr/bin/mc mb myminio/datalake-landing;
       /usr/bin/mc anonymous set public myminio/datalake-landing;
+      /usr/bin/mc mb myminio/datalake-landing/spark-events;
+      /usr/bin/mc anonymous set public myminio/datalake-landing/spark-events;
       /usr/bin/mc mb myminio/datalake-bronze;
       /usr/bin/mc anonymous set public myminio/datalake-bronze;
       /usr/bin/mc mb myminio/datalake-silver;
