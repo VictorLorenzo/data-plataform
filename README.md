@@ -188,15 +188,28 @@ Port: 7077
 * Now you're connected to the Unity Catalog
   ![alt text](./assets/DBeaver_Hive_Catalog.png)
 
-#### 9. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
+#### 9. Metabase – Open-source business intelligence tool for exploring, visualizing, and sharing data insights.
+* Run the comamnd at the terminal to up the containner
+  ```sh
+  cd ../metabase && make up
+  ```
 
-#### 10. Kyuubi – Distributed multi-tenant JDBC server for Apache Spark.
+* Access http://localhost:3000/
 
-#### 11. Kafka – Distributed event streaming platform for building real-time data pipelines and applications.
+* Credentials:
+  ```
+  Host: trino-coordinator
+  port: 8080
+  user: admin
+  ```
 
-#### 12. Debezium – Distributed platform for change data capture (CDC), streaming real-time changes from databases to other systems.
+#### 10. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
 
-#### 13. Metabase – Open-source business intelligence tool for exploring, visualizing, and sharing data insights.
+#### 11. Kyuubi – Distributed multi-tenant JDBC server for Apache Spark.
+
+#### 12. Kafka – Distributed event streaming platform for building real-time data pipelines and applications.
+
+#### 13. Debezium – Distributed platform for change data capture (CDC), streaming real-time changes from databases to other systems.
 
 ### More TODO
 In the future i want to implement some ideas to automate some proccess:
