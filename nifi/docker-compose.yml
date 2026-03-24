@@ -55,6 +55,7 @@ services:
       - nifi_drivers:/opt/nifi/drivers
     ports:
       - 8443:8080
+      - 443:443
     environment:
       - NIFI_WEB_HTTP_PORT=8080
       # - NIFI_CLUSTER_IS_NODE=true
