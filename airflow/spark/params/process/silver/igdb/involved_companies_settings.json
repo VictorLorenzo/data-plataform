@@ -6,9 +6,10 @@
     "datalake_path": "s3a://datalake",
     "step_raw_to_bronze": {
         "source": {
-            "format": "avro",
+            "format": "json",
             "options": {
-              "inferSchema": "true"
+              "inferSchema": "true",
+              "multiLine": "true"
             }
         },
         "target": {
