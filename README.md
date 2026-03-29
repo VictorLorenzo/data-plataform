@@ -77,27 +77,31 @@ https://api-docs.igdb.com/#getting-started
   cd ../nifi && make up
   ```
 * Access the url http://localhost:8443/nifi/
-* At the nifi UI, upload your nifi template `./nifi/template/*.xml`
+* At the nifi UI, upload your nifi ProcessGroup `./nifi/template/*.json`
   ![alt text](./assets/nifiTemplateUpdate.png)
 * Drag and drop to chose the uploaded template.
-  ![alt text](./assets/SFTP_INGESTION.png)
-* Access the template and set the variables by right clicking on a blank space and apply.
+  ![alt text](./assets/IGDB_API_INGESTION.png)
+* Access the template double clicking at the group
+* Set the parameter by right clicking on a blank space(optional).
   ![alt text](./assets/Variables.png)
   ![alt text](./assets/Variables_set.png)
-* On InvokeHttp, doble click it and create two essential properties (It is recommended to enable the sensitive data option.).
+* On InvokeHttp, doble click it and create two essential properties (It is recommended to enable the sensitive data option. Don't forget, those credentials you get from https://api-docs.igdb.com/#getting-started.).
   ![alt text](./assets/Property_InvokeHttp.png)
   ```
   Authorization: Bearer "Your Access Token",
   Client-ID: "Your Client-ID",
   ```
 
-* Right click on a blank space and chose the "Configure" option and enable the controllers.
+* Right click on a blank space and chose the "Controller Services" option and enable the controller.
+  ![alt text](./assets/Controller_Sevice_Option.png)
   ![alt text](./assets/Activate_Controller.png)
 
+* Because you want to run it once for the start dump: Right click at "GenerateFlowFile" and Run once it, then deactivate so it cant run again in the flow
+  ![alt text](./assets/RunOnce.png)
 
-* Click on a blank space and start the proccess
+* Left Click on a blank space to select all flow and start the proccess
   ![alt text](./assets/Start_pipeline_nifi.png)
-* Wait and watch the proccess, you also can see the files beign ingested at your lading-bucket
+* Wait and watch the proccess, you can also see the files beign ingested at your lading-bucket
   ![alt text](./assets/minio_landing.png)
 
 #### 4. Unity Catalog – Open-source data catalog with 3-level namespace (catalog.schema.table) for unified data governance.
@@ -125,6 +129,7 @@ https://api-docs.igdb.com/#getting-started
 * Access http://localhost:8082/ to watch your spark workers
   ![alt text](./assets/spark_workers.png)
 * Spark is pre-configured with Unity Catalog as the default catalog
+* Access http://localhost:18080/ to see the process history
 
 #### 6. Airflow – Workflow orchestration platform for authoring, scheduling, and monitoring data pipelines.
 
