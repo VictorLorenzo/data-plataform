@@ -155,6 +155,14 @@ Host: spark://spark-master
 Port: 7077
 ```
 
+Configure the airflow pools: In Airflow, go to Admin -> Pools and add a new pool. You can add more pools depending on the number of Spark Workers you have.
+```
+Pool: spark_local_pool
+Slots: 4
+Description: Limits concurrent Spark driver submissions to protect local system resources.
+```
+
+
 * Run your pipeline
   ![alt text](./assets/airflow_pipeline.png)
   ![alt text](./assets/airflow_pipeline_detailed.png)

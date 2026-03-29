@@ -18,9 +18,10 @@ def create_steps_task_group(silver_settings_file):
             conn_id='spark_default',
             name=f'job_raw_to_bronze_{group_id}',
             driver_memory='1G',
-            executor_memory='2G',
-            total_executor_cores=2,
-            properties_file='/opt/airflow/config/spark-defaults.conf'
+            executor_memory='3G',
+            total_executor_cores=1,
+            properties_file='/opt/airflow/config/spark-defaults.conf',
+            pool='spark_local_pool'
         )
 
         step_bronze_to_silver = SparkSubmitOperator(
@@ -30,9 +31,10 @@ def create_steps_task_group(silver_settings_file):
             conn_id='spark_default',
             name=f'job_bronze_to_silver_{group_id}',
             driver_memory='1G',
-            executor_memory='2G',
-            total_executor_cores=2,
-            properties_file='/opt/airflow/config/spark-defaults.conf'
+            executor_memory='3G',
+            total_executor_cores=1,
+            properties_file='/opt/airflow/config/spark-defaults.conf',
+            pool='spark_local_pool'
         )
 
         step_raw_to_bronze >> step_bronze_to_silver
