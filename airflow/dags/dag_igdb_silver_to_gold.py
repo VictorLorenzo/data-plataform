@@ -20,7 +20,8 @@ def create_steps_task_group(gold_settings_file):
             driver_memory='1G',
             executor_memory='3G',
             total_executor_cores=1,
-            properties_file='/opt/airflow/config/spark-defaults.conf'
+            properties_file='/opt/airflow/config/spark-defaults.conf',
+            pool='spark_local_pool'
         )
 
         step_silver_to_gold
