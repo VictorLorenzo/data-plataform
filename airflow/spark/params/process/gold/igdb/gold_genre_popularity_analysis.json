@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_genre_popularity_analysis",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH game_genres AS ( SELECT g.id AS game_id, genre_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.genres) AS genre_id ), genre_platforms AS ( SELECT gg.genre_id, COUNT(DISTINCT plat_id) AS distinct_platforms FROM game_genres gg JOIN games_analytics_silver.games g ON g.id = gg.game_id LATERAL VIEW explode(g.platforms) AS plat_id GROUP BY gg.genre_id ), genre_ttb AS ( SELECT gg.genre_id, AVG(ttb.normally) AS avg_time_to_beat_normal_sec, AVG(ttb.completely) AS avg_time_to_beat_complete_sec FROM game_genres gg JOIN games_analytics_silver.game_time_to_beats ttb ON ttb.game_id = gg.game_id GROUP BY gg.genre_id ) SELECT ge.id, ge.id AS genre_id, ge.name AS genre_name, COUNT(DISTINCT gg.game_id) AS total_games, ROUND(AVG(g.rating), 2) AS avg_user_rating, ROUND(AVG(g.aggregated_rating), 2) AS avg_critic_rating, ROUND(AVG(g.total_rating), 2) AS avg_total_rating, SUM(g.rating_count) AS total_user_votes, ROUND(AVG(g.hypes), 2) AS avg_hype, COALESCE(gp.distinct_platforms, 0) AS platform_reach, ROUND(gt.avg_time_to_beat_normal_sec / 3600.0, 1) AS avg_hours_to_beat, ROUND(gt.avg_time_to_beat_complete_sec / 3600.0, 1) AS avg_hours_to_complete FROM games_analytics_silver.genres ge JOIN game_genres gg ON gg.genre_id = ge.id JOIN games_analytics_silver.games g ON g.id = gg.game_id LEFT JOIN genre_platforms gp ON gp.genre_id = ge.id LEFT JOIN genre_ttb gt ON gt.genre_id = ge.id GROUP BY ge.id, ge.name, gp.distinct_platforms, gt.avg_time_to_beat_normal_sec, gt.avg_time_to_beat_complete_sec ORDER BY total_games DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_franchise_performance",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH franchise_games AS ( SELECT f.id AS franchise_id, f.name AS franchise_name, game_id FROM games_analytics_silver.franchises f LATERAL VIEW explode(f.games) AS game_id ), franchise_agg AS ( SELECT fg.franchise_id, fg.franchise_name, COUNT(DISTINCT fg.game_id) AS total_titles, ROUND(AVG(g.total_rating), 2) AS avg_total_rating, MAX(g.total_rating) AS best_title_rating, MIN(g.total_rating) AS worst_title_rating, SUM(g.total_rating_count) AS total_votes, ROUND(AVG(g.hypes), 2) AS avg_hype, SUM(SIZE(COALESCE(g.dlcs, array()))) AS total_dlcs, SUM(SIZE(COALESCE(g.expansions, array()))) AS total_expansions, MIN(CAST(from_unixtime(g.first_release_date) AS TIMESTAMP)) AS first_release, MAX(CAST(from_unixtime(g.first_release_date) AS TIMESTAMP)) AS latest_release FROM franchise_games fg JOIN games_analytics_silver.games g ON g.id = fg.game_id GROUP BY fg.franchise_id, fg.franchise_name HAVING COUNT(DISTINCT fg.game_id) > 1 ) SELECT franchise_id AS id, franchise_id, franchise_name, total_titles, avg_total_rating, best_title_rating, worst_title_rating, total_votes, avg_hype, total_dlcs, total_expansions, first_release, latest_release, FLOOR(DATEDIFF(latest_release, first_release) / 365) AS franchise_span_years FROM franchise_agg ORDER BY total_titles DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

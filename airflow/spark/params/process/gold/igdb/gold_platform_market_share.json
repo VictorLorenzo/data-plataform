@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_platform_market_share",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH platform_games AS ( SELECT plat_id AS platform_id, g.id AS game_id, g.rating, g.aggregated_rating, g.total_rating, g.first_release_date FROM games_analytics_silver.games g LATERAL VIEW explode(g.platforms) AS plat_id ) SELECT p.id, p.id AS platform_id, p.name AS platform_name, p.abbreviation, pt.name AS platform_type, pf.name AS platform_family, p.generation, COUNT(DISTINCT pg.game_id) AS total_games, ROUND(AVG(pg.rating), 2) AS avg_user_rating, ROUND(AVG(pg.aggregated_rating), 2) AS avg_critic_rating, MIN(CAST(from_unixtime(pg.first_release_date) AS TIMESTAMP)) AS earliest_game_release, MAX(CAST(from_unixtime(pg.first_release_date) AS TIMESTAMP)) AS latest_game_release FROM games_analytics_silver.platforms p LEFT JOIN games_analytics_silver.platform_types pt ON pt.id = p.platform_type LEFT JOIN games_analytics_silver.platform_families pf ON pf.id = p.platform_family LEFT JOIN platform_games pg ON pg.platform_id = p.id GROUP BY p.id, p.name, p.abbreviation, pt.name, pf.name, p.generation ORDER BY total_games DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

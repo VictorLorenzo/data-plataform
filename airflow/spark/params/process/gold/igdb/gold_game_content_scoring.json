@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_game_content_scoring",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH game_age_ratings AS ( SELECT g.id AS game_id, g.name AS game_name, rating_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.age_ratings) AS rating_id ) SELECT md5(CONCAT(CAST(gar.game_id AS STRING), '_', CAST(gar.rating_id AS STRING))) AS id, gar.game_id, gar.game_name, aro.name AS rating_organization, arc.rating AS rating_category, ar.synopsis, g.total_rating, g.total_rating_count FROM game_age_ratings gar JOIN games_analytics_silver.age_ratings ar ON ar.id = gar.rating_id LEFT JOIN games_analytics_silver.age_rating_organizations aro ON aro.id = ar.organization LEFT JOIN games_analytics_silver.age_rating_categories arc ON arc.id = ar.rating_category JOIN games_analytics_silver.games g ON g.id = gar.game_id ORDER BY gar.game_name, aro.name"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

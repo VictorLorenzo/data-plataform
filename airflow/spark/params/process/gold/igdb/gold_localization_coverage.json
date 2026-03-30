@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_localization_coverage",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH game_lang_summary AS ( SELECT ls.game AS game_id, COUNT(DISTINCT ls.language) AS total_languages, COUNT(DISTINCT CASE WHEN lst.name = 'Audio' THEN ls.language END) AS audio_languages, COUNT(DISTINCT CASE WHEN lst.name = 'Subtitles' THEN ls.language END) AS subtitle_languages, COUNT(DISTINCT CASE WHEN lst.name = 'Interface' THEN ls.language END) AS interface_languages FROM games_analytics_silver.language_supports ls LEFT JOIN games_analytics_silver.language_support_types lst ON lst.id = ls.language_support_type GROUP BY ls.game ) SELECT g.id, g.id AS game_id, g.name AS game_name, g.total_rating, g.total_rating_count, gls.total_languages, gls.audio_languages, gls.subtitle_languages, gls.interface_languages, CASE WHEN gls.total_languages >= 15 THEN 'Extensive (15+)' WHEN gls.total_languages >= 8 THEN 'Broad (8-14)' WHEN gls.total_languages >= 3 THEN 'Moderate (3-7)' ELSE 'Limited (1-2)' END AS localization_tier FROM games_analytics_silver.games g JOIN game_lang_summary gls ON gls.game_id = g.id ORDER BY gls.total_languages DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

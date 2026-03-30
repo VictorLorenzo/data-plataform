@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_game_catalog_enriched",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH games_exploded_genres AS ( SELECT g.id AS game_id, genre_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.genres) AS genre_id ), game_genre_agg AS ( SELECT geg.game_id, collect_set(ge.name) AS genre_names FROM games_exploded_genres geg JOIN games_analytics_silver.genres ge ON ge.id = geg.genre_id GROUP BY geg.game_id ), games_exploded_themes AS ( SELECT g.id AS game_id, theme_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.themes) AS theme_id ), game_theme_agg AS ( SELECT geth.game_id, collect_set(th.name) AS theme_names FROM games_exploded_themes geth JOIN games_analytics_silver.themes th ON th.id = geth.theme_id GROUP BY geth.game_id ), games_exploded_platforms AS ( SELECT g.id AS game_id, plat_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.platforms) AS plat_id ), game_platform_agg AS ( SELECT gep.game_id, collect_set(p.name) AS platform_names FROM games_exploded_platforms gep JOIN games_analytics_silver.platforms p ON p.id = gep.plat_id GROUP BY gep.game_id ), games_exploded_modes AS ( SELECT g.id AS game_id, mode_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.game_modes) AS mode_id ), game_mode_agg AS ( SELECT gem.game_id, collect_set(gm.name) AS game_mode_names FROM games_exploded_modes gem JOIN games_analytics_silver.game_modes gm ON gm.id = gem.mode_id GROUP BY gem.game_id ), games_exploded_perspectives AS ( SELECT g.id AS game_id, pp_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.player_perspectives) AS pp_id ), game_perspective_agg AS ( SELECT gep2.game_id, collect_set(pp.name) AS perspective_names FROM games_exploded_perspectives gep2 JOIN games_analytics_silver.player_perspectives pp ON pp.id = gep2.pp_id GROUP BY gep2.game_id ) SELECT g.id, g.id AS game_id, g.name AS game_name, g.slug, g.summary, g.storyline, gt.type AS game_type, gs.status AS game_status, CAST(from_unixtime(g.first_release_date) AS TIMESTAMP) AS first_release_date, g.rating AS user_rating, g.rating_count AS user_rating_count, g.aggregated_rating AS critic_rating, g.aggregated_rating_count AS critic_rating_count, g.total_rating, g.total_rating_count, g.hypes, COALESCE(gga.genre_names, array()) AS genres, COALESCE(gta.theme_names, array()) AS themes, COALESCE(gpa.platform_names, array()) AS platforms, COALESCE(gma.game_mode_names, array()) AS game_modes, COALESCE(gpsa.perspective_names, array()) AS player_perspectives, SIZE(COALESCE(g.dlcs, array())) AS dlc_count, SIZE(COALESCE(g.expansions, array())) AS expansion_count, SIZE(COALESCE(g.remakes, array())) AS remake_count, SIZE(COALESCE(g.remasters, array())) AS remaster_count, g.url AS igdb_url FROM games_analytics_silver.games g LEFT JOIN games_analytics_silver.game_types gt ON gt.id = g.game_type LEFT JOIN games_analytics_silver.game_statuses gs ON gs.id = g.game_status LEFT JOIN game_genre_agg gga ON gga.game_id = g.id LEFT JOIN game_theme_agg gta ON gta.game_id = g.id LEFT JOIN game_platform_agg gpa ON gpa.game_id = g.id LEFT JOIN game_mode_agg gma ON gma.game_id = g.id LEFT JOIN game_perspective_agg gpsa ON gpsa.game_id = g.id"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

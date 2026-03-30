@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_engine_adoption_trends",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH game_engines_flat AS ( SELECT g.id AS game_id, engine_id FROM games_analytics_silver.games g LATERAL VIEW explode(g.game_engines) AS engine_id ), engine_platforms AS ( SELECT gef.engine_id, collect_set(p.name) AS supported_platforms FROM game_engines_flat gef JOIN games_analytics_silver.games g ON g.id = gef.game_id LATERAL VIEW explode(g.platforms) AS plat_id JOIN games_analytics_silver.platforms p ON p.id = plat_id GROUP BY gef.engine_id ) SELECT ge.id, ge.id AS engine_id, ge.name AS engine_name, ge.description AS engine_description, COUNT(DISTINCT gef.game_id) AS total_games_built, ROUND(AVG(g.total_rating), 2) AS avg_game_rating, ROUND(AVG(g.hypes), 2) AS avg_game_hype, MIN(CAST(from_unixtime(g.first_release_date) AS TIMESTAMP)) AS earliest_game, MAX(CAST(from_unixtime(g.first_release_date) AS TIMESTAMP)) AS latest_game, ep.supported_platforms FROM games_analytics_silver.game_engines ge JOIN game_engines_flat gef ON gef.engine_id = ge.id JOIN games_analytics_silver.games g ON g.id = gef.game_id LEFT JOIN engine_platforms ep ON ep.engine_id = ge.id GROUP BY ge.id, ge.name, ge.description, ep.supported_platforms ORDER BY total_games_built DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

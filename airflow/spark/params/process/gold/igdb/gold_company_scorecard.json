@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_company_scorecard",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "WITH company_roles AS ( SELECT ic.company AS company_id, COUNT(DISTINCT ic.game) AS total_games_involved, COUNT(DISTINCT CASE WHEN ic.developer = true THEN ic.game END) AS games_developed, COUNT(DISTINCT CASE WHEN ic.publisher = true THEN ic.game END) AS games_published, COUNT(DISTINCT CASE WHEN ic.porting = true THEN ic.game END) AS games_ported, COUNT(DISTINCT CASE WHEN ic.supporting = true THEN ic.game END) AS games_supported FROM games_analytics_silver.involved_companies ic GROUP BY ic.company ), company_ratings AS ( SELECT ic.company AS company_id, ROUND(AVG(g.rating), 2) AS avg_user_rating, ROUND(AVG(g.aggregated_rating), 2) AS avg_critic_rating, ROUND(AVG(g.total_rating), 2) AS avg_total_rating, SUM(g.total_rating_count) AS total_votes_received, MAX(g.total_rating) AS best_rated_score FROM games_analytics_silver.involved_companies ic JOIN games_analytics_silver.games g ON g.id = ic.game GROUP BY ic.company ), company_genre_counts AS ( SELECT ic.company AS company_id, ge.name AS genre_name, COUNT(*) AS cnt FROM games_analytics_silver.involved_companies ic JOIN games_analytics_silver.games g ON g.id = ic.game LATERAL VIEW explode(g.genres) AS genre_id JOIN games_analytics_silver.genres ge ON ge.id = genre_id GROUP BY ic.company, ge.name ), company_top_genre AS ( SELECT company_id, genre_name, ROW_NUMBER() OVER ( PARTITION BY company_id ORDER BY cnt DESC ) AS rn FROM company_genre_counts ) SELECT c.id, c.id AS company_id, c.name AS company_name, cs.status AS company_status, c.description, cr.total_games_involved, cr.games_developed, cr.games_published, cr.games_ported, cr.games_supported, crat.avg_user_rating, crat.avg_critic_rating, crat.avg_total_rating, crat.total_votes_received, crat.best_rated_score, ctg.genre_name AS primary_genre FROM games_analytics_silver.companies c LEFT JOIN games_analytics_silver.company_statuses cs ON cs.id = c.status LEFT JOIN company_roles cr ON cr.company_id = c.id LEFT JOIN company_ratings crat ON crat.company_id = c.id LEFT JOIN company_top_genre ctg ON ctg.company_id = c.id AND ctg.rn = 1 WHERE cr.total_games_involved > 0 ORDER BY cr.total_games_involved DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

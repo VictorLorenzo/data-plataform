@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_release_timeline",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "SELECT md5(CONCAT(COALESCE(CAST(rd.y AS STRING), ''), '_', COALESCE(CAST(rd.m AS STRING), ''), '_', COALESCE(p.name, ''), '_', COALESCE(r.name, ''))) AS id, rd.y AS release_year, rd.m AS release_month, p.name AS platform_name, r.name AS region_name, COUNT(DISTINCT rd.game) AS games_released, ROUND(AVG(g.total_rating), 2) AS avg_total_rating, ROUND(AVG(g.hypes), 2) AS avg_hype, SUM(g.total_rating_count) AS total_votes FROM games_analytics_silver.release_dates rd JOIN games_analytics_silver.games g ON g.id = rd.game LEFT JOIN games_analytics_silver.platforms p ON p.id = rd.platform LEFT JOIN games_analytics_silver.regions r ON r.id = rd.release_region WHERE rd.y IS NOT NULL AND rd.y > 0 GROUP BY rd.y, rd.m, p.name, r.name ORDER BY rd.y DESC, rd.m DESC, games_released DESC"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}

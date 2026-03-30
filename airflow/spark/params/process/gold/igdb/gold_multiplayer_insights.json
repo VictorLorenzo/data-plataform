@@ -1,0 +1,19 @@
+{
+    "layer": "gold",
+    "project": "games_analytics",
+    "subject": "IGDB",
+    "table": "gold_multiplayer_insights",
+    "datalake_path": "s3a://datalake",
+    "step_silver_to_gold": {
+        "source": {
+            "query": "SELECT mm.id, g.id AS game_id, g.name AS game_name, p.name AS platform_name, mm.onlinecoop, mm.offlinecoop, mm.lancoop, mm.campaigncoop, mm.splitscreen, mm.dropin, mm.onlinemax, mm.onlinecoopmax, mm.offlinemax, mm.offlinecoopmax, g.total_rating, g.total_rating_count, g.hypes, CASE WHEN mm.onlinecoop = true AND mm.offlinecoop = true THEN 'Full Co-op' WHEN mm.onlinecoop = true THEN 'Online Only' WHEN mm.offlinecoop = true THEN 'Offline Only' ELSE 'Competitive / Other' END AS coop_category FROM games_analytics_silver.multiplayer_modes mm JOIN games_analytics_silver.games g ON g.id = mm.game LEFT JOIN games_analytics_silver.platforms p ON p.id = mm.platform"
+        },
+        "target": {
+            "options": {
+                "primary_key": ["id"],
+                "sequence_by": ["_gold_created_at"],
+                "mode": "append"
+            }
+        }
+    }
+}
