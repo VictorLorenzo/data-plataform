@@ -18,8 +18,8 @@ def create_steps_task_group(gold_settings_file):
             conn_id='spark_default',
             name=f'job_silver_to_gold_{group_id}',
             driver_memory='1G',
-            executor_memory='2G',
-            total_executor_cores=2,
+            executor_memory='3G',
+            total_executor_cores=1,
             properties_file='/opt/airflow/config/spark-defaults.conf'
         )
 
@@ -58,7 +58,7 @@ def create_dag(dag_id, schedule, default_args, gold_settings_files):
 
 dag_id = 'dag_igdb_silver_to_gold'
 # schedule interval for the DAG
-schedule = '0 */1 * * *'
+schedule = None
 # DAG default params
 default_args = {
     'owner': 'airflow',
