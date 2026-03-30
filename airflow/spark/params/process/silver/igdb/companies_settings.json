@@ -32,7 +32,8 @@
             },
             "sql_transformations": {
                 "10-add-silver-columns": [ "current_timestamp() _silver_created_at" ],
-                "20-common-table-converts": ["from_unixtime(created_at) as created_at_ts", "from_unixtime(updated_at) as updated_at_ts"]
+                "20-common-table-converts": ["from_unixtime(created_at) as created_at_ts", "from_unixtime(updated_at) as updated_at_ts"],
+                "30-companies-specific-transforms": ["from_unixtime(start_date) as start_date_ts", "from_unixtime(change_date) as change_date_ts"]
             }
         }
     }
