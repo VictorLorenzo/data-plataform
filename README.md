@@ -1,25 +1,70 @@
-# Description
+# 🚀 Open-Source Data Lakehouse Platform: Architecture Overview
 
-This is a fully open-source data platform designed for efficient data ingestion, processing, storage, and analytics. It integrates multiple services to provide a seamless data pipeline, from collection to visualization.
+This is a robust, fully open-source data platform designed for efficient data ingestion, processing, storage, and analytics. Built around a modern Data Lakehouse architecture, it integrates best-in-class services to provide a seamless, scalable, and governed data pipeline—from raw data collection to actionable business intelligence.
 
 ![alt text](./assets/data_platform.png)
 
+### 1. Data Ingestion Layer
+The platform ingests data from diverse sources, including APIs (like IGDB), SFTP servers, external S3 buckets, and relational databases (JDBC). 
+
+* **Apache NiFi:** Acts as the core ingestion engine, securely routing and transforming data in transit (via HTTPS).
+
+### 2. Storage Layer (Delta Lake / MinIO)
+At the heart of the platform is **MinIO**, serving as a highly performant, S3-compatible object storage system. It strictly adheres to the **Medallion Architecture** for progressive data refinement:
+
+* **Landing/Bronze:** Raw data ingestion.
+* **Silver:** Cleaned, filtered, and augmented data.
+* **Gold:** Business-level aggregates ready for analytics.
+
+### 3. Orchestration & Transformation
+Pipelines are version-controlled via Git (utilizing Python and Jinja) and executed through a powerful orchestration layer.
+
+* **Apache Airflow:** Orchestrates the entire data lifecycle using a distributed setup (CeleryExecutor, Redis broker, PostgreSQL metadata).
+* **Apache Spark:** A dedicated cluster (Master + multiple Workers) handles heavy-duty, distributed data processing, reading and writing to MinIO via the Hadoop AWS S3A connector.
+
+### 4. Data Catalog & Governance
+Metadata management and data governance are centralized to ensure data quality and discoverability.
+
+* **Unity Catalog:** Serves as the primary REST API catalog.
+* **PostgreSQL & Hive Metastore:** Back the Unity Catalog, tracking schemas and managing tables across the data lake.
+
+### 5. Distributed SQL Engine
+**Trino** functions as the high-performance, distributed SQL query engine. 
+
+* Configured with a Coordinator and multiple Worker nodes, it leverages the **Iceberg connector** and Unity Catalog REST API to query data directly from MinIO without needing to move it.
+
+### 6. Visualization & Management
+The top layer empowers analysts and business users to extract insights effortlessly.
+
+* **Metabase:** Provides interactive dashboards and Business Intelligence (BI) capabilities.
+* **DBeaver:** Offers a robust database management tool for direct SQL querying.
+
+> **Note:** Both tools connect seamlessly to the underlying data lake via Trino JDBC.
+
 ## Initial Setup
 
-This Project uses a beta project as an auxiliar way to simplify the Spark process at the airflow step:
+> **Note:** This Project uses his own framework as an auxiliar way to simplify the Spark process at the airflow step
 
-https://github.com/VictorLorenzo/data-framework
-
-Realize that you can use other ways to process your data
+https://github.com/VictorLorenzo/data-framework ```You can use other ways to process your data if necessary```
 
 ### Data Framework - Git module
-This Project is dedicated to create an ingestion framework that auxiliate the data engineer at the etl process on a delta lake with medalion architecture
+A PySpark-based ETL framework for processing data through a medallion architecture (Raw → Bronze → Silver → Gold). Built on top of Apache Spark, Delta Lake, and Unity Catalog, with Iceberg compatibility via Delta UniForm.
 
 * Runs the command
   ```sh
   git submodule update --init --recursive
   ```
 
+### Chose your project (#Notice: Righ now the only Project available is igdb-pipeline)
+At my github you can find pipelines configurations for all kind of data: https://github.com/VictorLorenzo. The configurations being the:
+* Airflow python orchestration: ```/{PROJECT}/airflow/dags/{PYTHON_SCRIPT}```
+* json silver templates for the data-framework: ```/{PROJECT}/airflow/spark/params/process/silver/{PIPELINE}```
+* json gold templates for the data-framework: ```/{PROJECT}/airflow/spark/params/process/gold/{PIPELINE}```
+* nifi data ingestion templates: ```/{PROJECT}/nifi/templates/{TAMPLATES}```
+
+You need to copy & paste those files at their respective directories at the data platform
+
+![alt text](./assets/subprojects_example.png)
 
 ### All services must be started in the order below:
 
@@ -68,41 +113,13 @@ make network-create NETWORK=data-plataform
   ![alt text](./assets/MinioUIAccessKeys.png)
 
 #### 3. NiFi – Automates data movement, ingestion and transformation.
-If you want to use the templates available in this example, you need to follow the steps to create an account on IGDB.
-https://api-docs.igdb.com/#getting-started
-
 * Run the comamnd at the terminal to up the containner
 
   ```sh
   cd ../nifi && make up
   ```
-* Access the url http://localhost:8443/nifi/
-* At the nifi UI, upload your nifi ProcessGroup `./nifi/template/*.json`
-  ![alt text](./assets/nifiTemplateUpdate.png)
-* Drag and drop to chose the uploaded template.
-  ![alt text](./assets/IGDB_API_INGESTION.png)
-* Access the template double clicking at the group
-* Set the parameter by right clicking on a blank space(optional).
-  ![alt text](./assets/Variables.png)
-  ![alt text](./assets/Variables_set.png)
-* On InvokeHttp, doble click it and create two essential properties (It is recommended to enable the sensitive data option. Don't forget, those credentials you get from https://api-docs.igdb.com/#getting-started.).
-  ![alt text](./assets/Property_InvokeHttp.png)
-  ```
-  Authorization: Bearer "Your Access Token",
-  Client-ID: "Your Client-ID",
-  ```
 
-* Right click on a blank space and chose the "Controller Services" option and enable the controller.
-  ![alt text](./assets/Controller_Sevice_Option.png)
-  ![alt text](./assets/Activate_Controller.png)
-
-* Because you want to run it once for the start dump: Right click at "GenerateFlowFile" and Run once it, then deactivate so it cant run again in the flow
-  ![alt text](./assets/RunOnce.png)
-
-* Left Click on a blank space to select all flow and start the proccess
-  ![alt text](./assets/Start_pipeline_nifi.png)
-* Wait and watch the proccess, you can also see the files beign ingested at your lading-bucket
-  ![alt text](./assets/minio_landing.png)
+**WARNING:** Each pipeline project has it own way to do the ingestion, you can read the ```Read.me``` from the chosed pipeline project for better understanding.
 
 #### 4. Unity Catalog – Open-source data catalog with 3-level namespace (catalog.schema.table) for unified data governance.
 
