@@ -19,5 +19,5 @@ services:
 
 networks:
   default:
-    name: data-plataform
+    name: data-platform
     external: true

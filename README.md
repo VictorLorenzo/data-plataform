@@ -70,10 +70,10 @@ You need to copy & paste those files at their respective directories at the data
 
 #### 0. Network
 
-To the data plataform comunicate with each other, it need a network
+To the data platform comunicate with each other, it need a network
 
 ```sh
-make network-create NETWORK=data-plataform
+make network-create NETWORK=data-platform
 ```
 
 #### 1. SFTP – Secure file transfer for ingesting raw data.(optional)
