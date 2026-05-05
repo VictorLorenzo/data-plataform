@@ -43,24 +43,24 @@ The top layer empowers analysts and business users to extract insights effortles
 
 ## Initial Setup
 
-> **Note:** This Project uses his own framework as an auxiliar way to simplify the Spark process at the airflow step
+> **Note:** This project uses its own framework as an auxiliary way to simplify the Spark process at the Airflow step
 
 https://github.com/VictorLorenzo/data-framework ```You can use other ways to process your data if necessary```
 
 ### Data Framework - Git module
 A PySpark-based ETL framework for processing data through a medallion architecture (Raw → Bronze → Silver → Gold). Built on top of Apache Spark, Delta Lake, and Unity Catalog, with Iceberg compatibility via Delta UniForm.
 
-* Runs the command
+* Run the command
   ```sh
   git submodule update --init --recursive
   ```
 
-### Chose your project (#Notice: Righ now the only Project available is igdb-pipeline)
-At my github you can find pipelines configurations for all kind of data: https://github.com/VictorLorenzo. The configurations being the:
+### Choose your project (#Notice: Right now the only project available is igdb-pipeline)
+At my GitHub you can find pipeline configurations for all kinds of data: https://github.com/VictorLorenzo. The configurations are:
 * Airflow python orchestration: ```/{PROJECT}/airflow/dags/{PYTHON_SCRIPT}```
 * json silver templates for the data-framework: ```/{PROJECT}/airflow/spark/params/process/silver/{PIPELINE}```
 * json gold templates for the data-framework: ```/{PROJECT}/airflow/spark/params/process/gold/{PIPELINE}```
-* nifi data ingestion templates: ```/{PROJECT}/nifi/templates/{TAMPLATES}```
+* NiFi data ingestion templates: ```/{PROJECT}/nifi/templates/{TEMPLATES}```
 
 You need to copy & paste those files at their respective directories at the data platform
 
@@ -70,7 +70,7 @@ You need to copy & paste those files at their respective directories at the data
 
 #### 0. Network
 
-To the data platform comunicate with each other, it need a network
+For the data platform services to communicate with each other, they need a network
 
 ```sh
 make network-create NETWORK=data-platform
@@ -78,14 +78,14 @@ make network-create NETWORK=data-platform
 
 #### 1. SFTP – Secure file transfer for ingesting raw data.(optional)
 
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
   ```sh
   cd sftp && make up
   ```
 
 #### 2. MinIO – Object storage for scalable data management.
 
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
 
   ```sh
   cd ../minio && make up
@@ -113,13 +113,13 @@ make network-create NETWORK=data-platform
   ![alt text](./assets/MinioUIAccessKeys.png)
 
 #### 3. NiFi – Automates data movement, ingestion and transformation.
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
 
   ```sh
   cd ../nifi && make up
   ```
 
-**WARNING:** Each pipeline project has it own way to do the ingestion, you can read the ```Read.me``` from the chosed pipeline project for better understanding.
+**WARNING:** Each pipeline project has its own way to handle ingestion. You can read the ```README.md``` from the chosen pipeline project for a better understanding.
 
 #### 4. Unity Catalog – Open-source data catalog with 3-level namespace (catalog.schema.table) for unified data governance.
 
@@ -150,7 +150,7 @@ make network-create NETWORK=data-platform
 
 #### 6. Airflow – Workflow orchestration platform for authoring, scheduling, and monitoring data pipelines.
 
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
 
   ```sh
   cd ../airflow && make up
@@ -162,7 +162,7 @@ make network-create NETWORK=data-platform
   pass: airflow
   ```
 
-Important for execute Spark Jobs.
+Important for executing Spark jobs.
 
 Configure the Spark connection: In Airflow, go to Admin -> Connections and add a new connection. Set the Conn Id as spark_default, the Conn Type as Spark, and the Host as the address of your Spark master.
 ```
@@ -185,7 +185,7 @@ Description: Limits concurrent Spark driver submissions to protect local system 
   ![alt text](./assets/airflow_pipeline_detailed.png)
 
 #### 7. Trino – Distributed SQL query engine for fast, interactive analytics across multiple data sources.
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
   ```sh
   cd ../trino && make up
   ```
@@ -195,14 +195,14 @@ Description: Limits concurrent Spark driver submissions to protect local system 
   ```
 
 #### 8. DBeaver – Database management and visualization tool.
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
   ```sh
   cd ../dbeaver && make up
   ```
 
 * Access http://localhost:8978/#/
 
-* Chose a password and click next
+* Choose a password and click next
   ![alt text](./assets/Password_Dbeaver.png)
 
 * At the Top left corner click "+" --> "New Connection" and search for the Trino Connection
@@ -219,7 +219,7 @@ Description: Limits concurrent Spark driver submissions to protect local system 
   ![alt text](./assets/DBeaver_Hive_Catalog.png)
 
 #### 9. Metabase – Open-source business intelligence tool for exploring, visualizing, and sharing data insights.
-* Run the comamnd at the terminal to up the containner
+* Run the command at the terminal to start the container
   ```sh
   cd ../metabase && make up
   ```
@@ -242,7 +242,7 @@ Description: Limits concurrent Spark driver submissions to protect local system 
 #### 13. Debezium – Distributed platform for change data capture (CDC), streaming real-time changes from databases to other systems.
 
 ### More TODO
-In the future i want to implement some ideas to automate some proccess:
+In the future I want to implement some ideas to automate some processes:
 
 * ~~Use Unity Catalog for data governance and data quality, also as catalog~~ ☑️ (Implemented - Unity Catalog OSS)
 
@@ -252,10 +252,10 @@ In the future i want to implement some ideas to automate some proccess:
 
 * Add more data integration such as with steam API ☑️(Project in Beta)
 
-* Implement CI/CD proccess to upload your pipeline without commiting any new code
+* Implement CI/CD process to upload your pipeline without committing any new code
 
-* Add more new feature from databricks
+* Add more new features from Databricks
 
-* Add Compatibility with AWS and Databircks
+* Add compatibility with AWS and Databricks
 
-* Create clusterized environment using Kubernetes
+* Create a clustered environment using Kubernetes
