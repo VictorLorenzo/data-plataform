@@ -71,9 +71,9 @@ def create_dag(dag_id, schedule, default_args, silver_settings_files):
     return dag
 
 
-dag_id = 'dag_igdb_raw_to_silver'
+dag_id = 'dag_igdb_raw_to_silver_cdc'
 # schedule interval for the DAG
-schedule = '@daily'
+schedule = None
 # DAG default params
 default_args = {
     'owner': 'airflow',
@@ -83,7 +83,7 @@ default_args = {
     'retries': 1,
 }
 
-params_directory = '/opt/airflow/spark/params/process/silver/igdb'
+params_directory = '/opt/airflow/spark/params/process/silver/igdb-webhook'
 silver_settings_files = list_files(params_directory)
 
 globals()[dag_id] = create_dag(dag_id, schedule, default_args, silver_settings_files)
