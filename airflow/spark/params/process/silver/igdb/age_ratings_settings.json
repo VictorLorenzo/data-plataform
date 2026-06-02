@@ -16,6 +16,7 @@
             "options": {
                 "primary_key": ["id"],
                 "sequence_by": ["_bronze_created_at"],
+                "apply_as_delete": "source_.operation = 'delete'",
                 "mode": "append"
             }
         }
@@ -28,6 +29,7 @@
             "options": {
                 "primary_key": ["id"],
                 "sequence_by": ["_silver_created_at"],
+                "apply_as_delete": "source_.operation = 'delete'",
                 "mode": "append"
             }
         }

@@ -73,7 +73,7 @@ def create_dag(dag_id, schedule, default_args, silver_settings_files):
 
 dag_id = 'dag_igdb_raw_to_silver'
 # schedule interval for the DAG
-schedule = '@daily'
+schedule = '*/5 * * * *'
 # DAG default params
 default_args = {
     'owner': 'airflow',
