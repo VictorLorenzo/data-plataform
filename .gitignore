@@ -172,3 +172,13 @@ cython_debug/
 # synthetic-data-generator
 /jupyter/nohup.out
 /jupyter/work/synthetic-data-generator-output.ipynb
+
+#Pipelines Projects
+
+## Nifi
+/nifi/custom_processors
+/nifi/scrapper_scripts
+
+## airflow
+/airflow/dags
+/airflow/spark/params
