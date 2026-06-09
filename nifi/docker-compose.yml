@@ -13,6 +13,8 @@ services:
       - nifi_state:/opt/nifi/nifi-current/state
       - nifi_logs:/opt/nifi/nifi-current/logs
       - ./minio_sites:/opt/nifi/nifi-current/minio_sites
+      - ./custom_processors:/opt/nifi/nifi-current/python_extensions
+      - ./scrapper_scripts:/opt/nifi/scrapper_scripts:ro
       - nifi_conf:/opt/nifi/nifi-current/conf
       - nifi_drivers:/opt/nifi/drivers
     ports:
