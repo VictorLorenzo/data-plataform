@@ -185,13 +185,46 @@ Description: Limits concurrent Spark driver submissions to protect local system 
   ![alt text](./assets/airflow_pipeline_detailed.png)
 
 #### 7. Trino – Distributed SQL query engine for fast, interactive analytics across multiple data sources.
+
+> **Note:** The Trino coordinator uses file-based password authentication. Both the `password.db` and the `.env` files are **gitignored** because they contain credentials, so you must create them locally before starting the container.
+
+* Create the env file `trino/.env` (template available at `trino/.env.example`). The `TRINO_SHARED_SECRET` is required because authentication is enabled — coordinator and workers must share the same secret to communicate internally.
+  ```sh
+  cp trino/.env.example trino/.env
+  # Generate a strong shared secret and write it into trino/.env
+  echo "TRINO_SHARED_SECRET=$(openssl rand -base64 32)" >> trino/.env
+  ```
+  Final `trino/.env` should look like:
+  ```env
+  CATALOG_MANAGEMENT=dynamic
+  TRINO_SHARED_SECRET=<base64-random-32-bytes>
+  ```
+
+* Create the password file `trino/config/coordinator/password.db` with a bcrypt-hashed entry per user (format: `username:bcrypt_hash`). You can generate it with `htpasswd` (Apache utils) via Docker — no local install required:
+  ```sh
+  # Replace <USER> and <PASSWORD> with your values
+  docker run --rm httpd:2.4-alpine htpasswd -nbB -C 10 <USER> '<PASSWORD>' \
+    > trino/config/coordinator/password.db
+  ```
+  Example (creates user `admin`):
+  ```sh
+  docker run --rm httpd:2.4-alpine htpasswd -nbB -C 10 admin 'Tr1n0@dm1n#2026' \
+    > trino/config/coordinator/password.db
+  ```
+  The resulting file should look like:
+  ```
+  admin:$2y$10$uj135m9VWxM/BEjHsrtFsucJY1gmDGvHsBNF4Wr/qmqX07TlOjtOK
+  ```
+  > **Security:** `bcrypt` is a one-way hash — the original password cannot be recovered. Keep a record of it in a password manager. To add more users, append new lines to the same file. Trino reloads it every 30s (`file.refresh-period=30s`).
+
 * Run the command at the terminal to start the container
   ```sh
   cd ../trino && make up
   ```
-* Access http://localhost:8099/ui/ to see the cluster overview
+* Access http://localhost:8099/ui/ to see the cluster overview, using the credentials you defined above (example credentials from the snippet above):
   ```
   user: admin
+  password: Tr1n0@dm1n#2026
   ```
 
 #### 8. DBeaver – Database management and visualization tool.
@@ -213,6 +246,7 @@ Description: Limits concurrent Spark driver submissions to protect local system 
   Host: trino-coordinator
   port: 8080
   user: admin
+  password: Tr1n0@dm1n#2026
   ```
 
 * Now you're connected to the Unity Catalog
@@ -231,6 +265,7 @@ Description: Limits concurrent Spark driver submissions to protect local system 
   Host: trino-coordinator
   port: 8080
   user: admin
+  password: Tr1n0@dm1n#2026
   ```
 
 #### 10. Jupyter – Interactive computing environment for creating and sharing documents with live code, visualizations, and narrative text.
