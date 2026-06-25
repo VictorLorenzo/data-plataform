@@ -185,3 +185,4 @@ cython_debug/
 
 ## trino (secrets)
 /trino/config/coordinator/password.db
+/.mcp.json
