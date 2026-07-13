@@ -29,8 +29,10 @@ services:
     ports:
       - "8087:8080"
       - "3001:3000"
+    env_file:
+      - ./.env
     environment:
-      S3_ENDPOINT: "http://minio:9000"
+      S3_ENDPOINT: "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
     volumes:
       - ./config/server.properties:/home/unitycatalog/etc/conf/server.properties
       - ./config/hibernate.properties:/home/unitycatalog/etc/conf/hibernate.properties

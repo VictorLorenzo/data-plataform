@@ -1,0 +1,13 @@
+# Copy this file to s3.properties (gitignored) and fill in your R2 credentials.
+# Setup endpoint
+host_base = <R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+host_bucket = <R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+bucket_location = auto
+use_https = True
+# Setup access keys
+access_key = replace-me
+secret_key = replace-me
+accessKey = replace-me
+secretKey = replace-me
+# Enable S3 v4 signature APIs
+signature_v2 = False

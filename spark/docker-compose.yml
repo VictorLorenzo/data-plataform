@@ -138,15 +138,17 @@ services:
     command: bin/spark-class org.apache.spark.deploy.history.HistoryServer
     depends_on:
       - spark-master
+    env_file:
+      - ./.env
     environment:
       SPARK_HISTORY_OPTS: >-
         -Dspark.history.fs.logDirectory=s3a://datalake-landing/spark-events
         -Dspark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
-        -Dspark.hadoop.fs.s3a.endpoint=http://minio:9000
-        -Dspark.hadoop.fs.s3a.access.key=accesskey
-        -Dspark.hadoop.fs.s3a.secret.key=secretkey
+        -Dspark.hadoop.fs.s3a.endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com
+        -Dspark.hadoop.fs.s3a.access.key=${R2_ACCESS_KEY_ID}
+        -Dspark.hadoop.fs.s3a.secret.key=${R2_SECRET_ACCESS_KEY}
         -Dspark.hadoop.fs.s3a.path.style.access=true
-        -Dspark.hadoop.fs.s3a.connection.ssl.enabled=false
+        -Dspark.hadoop.fs.s3a.connection.ssl.enabled=true
     ports:
       - "18080:18080"
     healthcheck:
