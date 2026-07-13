@@ -178,6 +178,7 @@ cython_debug/
 ## Nifi
 /nifi/custom_processors
 /nifi/scrapper_scripts
+/nifi/minio_sites/s3.properties
 
 ## airflow
 /airflow/dags
@@ -186,3 +187,9 @@ cython_debug/
 ## trino (secrets)
 /trino/config/coordinator/password.db
 /.mcp.json
+
+## R2 credentials (real secrets — .example templates stay checked in)
+/unity-catalog/config/server.properties
+/airflow/config/spark-defaults.conf
+/spark/spark-config/spark-defaults.conf
+/jupyter/jupyter-config/spark-defaults.conf

@@ -1,0 +1,35 @@
+server.env=dev
+
+# Copy this file to server.properties (gitignored) and fill in your R2 credentials
+# (Cloudflare dashboard > R2 > Manage API tokens). sessionToken is unused: the
+# patched FileIOFactory (docker/patch/FileIOFactory.java) builds AwsBasicCredentials
+# instead of AwsSessionCredentials whenever S3_ENDPOINT is set (see docker-compose.yml).
+s3.bucketPath.0=s3://datalake-landing
+s3.region.0=auto
+s3.accessKey.0=replace-me
+s3.secretKey.0=replace-me
+s3.sessionToken.0=
+
+s3.bucketPath.1=s3://datalake-bronze
+s3.region.1=auto
+s3.accessKey.1=replace-me
+s3.secretKey.1=replace-me
+s3.sessionToken.1=
+
+s3.bucketPath.2=s3://datalake-silver
+s3.region.2=auto
+s3.accessKey.2=replace-me
+s3.secretKey.2=replace-me
+s3.sessionToken.2=
+
+s3.bucketPath.3=s3://datalake-uc
+s3.region.3=auto
+s3.accessKey.3=replace-me
+s3.secretKey.3=replace-me
+s3.sessionToken.3=
+
+s3.bucketPath.4=s3://datalake-gold
+s3.region.4=auto
+s3.accessKey.4=replace-me
+s3.secretKey.4=replace-me
+s3.sessionToken.4=

@@ -42,12 +42,12 @@ spark.sql.defaultCatalog = datalake_uc
 # S3/MinIO access
 spark.hadoop.fs.s3a.impl = org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3.impl = org.apache.hadoop.fs.s3a.S3AFileSystem
-spark.hadoop.fs.s3a.endpoint = http://minio:9000
-spark.hadoop.fs.s3.endpoint = http://minio:9000
-spark.hadoop.fs.s3a.access.key = accesskey
-spark.hadoop.fs.s3a.secret.key = secretkey
+spark.hadoop.fs.s3a.endpoint = https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+spark.hadoop.fs.s3.endpoint = https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+spark.hadoop.fs.s3a.access.key = <R2_ACCESS_KEY_ID>
+spark.hadoop.fs.s3a.secret.key = <R2_SECRET_ACCESS_KEY>
 spark.hadoop.fs.s3a.path.style.access = true
-spark.hadoop.fs.s3a.connection.ssl.enabled = false
+spark.hadoop.fs.s3a.connection.ssl.enabled = true
 
 spark.sql.warehouse.dir = s3://datalake-uc/warehouse
 
