@@ -11,7 +11,7 @@ services:
       bash -c "./start.sh"
     volumes:
       - ./spark-apps:/opt/spark-apps
-      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./spark-config/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     ports:
       - "8082:8080"
       - "7077:7077"

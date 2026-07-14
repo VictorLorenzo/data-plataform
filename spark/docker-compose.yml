@@ -11,7 +11,7 @@ services:
       bash -c "./start.sh"
     volumes:
       - ./spark-apps:/opt/spark-apps/
-      - ./spark-config/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./spark-config/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     ports:
       - "8082:8080"
       - "7077:7077"
@@ -145,6 +145,7 @@ services:
         -Dspark.history.fs.logDirectory=s3a://datalake-landing/spark-events
         -Dspark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
         -Dspark.hadoop.fs.s3a.endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com
+        -Dspark.hadoop.fs.s3a.endpoint.region=auto
         -Dspark.hadoop.fs.s3a.access.key=${R2_ACCESS_KEY_ID}
         -Dspark.hadoop.fs.s3a.secret.key=${R2_SECRET_ACCESS_KEY}
         -Dspark.hadoop.fs.s3a.path.style.access=true
