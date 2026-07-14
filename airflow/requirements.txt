@@ -1,6 +1,6 @@
 apache-airflow==3.2.2
 apache-airflow-providers-apache-spark==5.6.0
 great-expectations==0.18.0
-pyspark==3.5.3
-delta-spark==3.2.1
+pyspark==4.1.1
+delta-spark==4.3.1
 pydash==8.0.3

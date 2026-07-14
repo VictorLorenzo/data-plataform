@@ -6,7 +6,7 @@ spark.sql.defaultCatalog=datalake_uc
 
 spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog
 
-spark.jars=/home/airflow/spark-jars/delta-spark_2.12-3.2.1.jar,/home/airflow/spark-jars/delta-storage-3.2.1.jar,/home/airflow/spark-jars/antlr4-runtime-4.9.3.jar,/home/airflow/spark-jars/hadoop-aws-3.3.4.jar,/home/airflow/spark-jars/aws-java-sdk-bundle-1.12.262.jar,/home/airflow/spark-jars/spark-avro_2.12-3.5.3.jar,/home/airflow/spark-jars/unitycatalog-spark_2.12-0.2.1.jar,/home/airflow/spark-jars/unitycatalog-client-0.2.1.jar,/home/airflow/spark-jars/delta-iceberg_2.12-3.2.1.jar
+spark.jars=/home/airflow/spark-jars/delta-spark_4.1_2.13-4.3.1.jar,/home/airflow/spark-jars/delta-storage-4.3.1.jar,/home/airflow/spark-jars/hadoop-aws-3.4.2.jar,/home/airflow/spark-jars/bundle-2.29.52.jar,/home/airflow/spark-jars/spark-avro_2.13-4.1.1.jar,/home/airflow/spark-jars/unitycatalog-spark_4.1_2.13-0.5.0.jar,/home/airflow/spark-jars/unitycatalog-client-0.5.0.jar,/home/airflow/spark-jars/unitycatalog-hadoop-0.5.0.jar,/home/airflow/spark-jars/delta-iceberg_2.13-4.3.1.jar
 spark.hadoop.fs.s3a.access.key=<R2_ACCESS_KEY_ID>
 spark.hadoop.fs.s3a.secret.key=<R2_SECRET_ACCESS_KEY>
 spark.hadoop.fs.s3a.path.style.access=true
@@ -14,6 +14,8 @@ spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3a.endpoint=https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
 spark.hadoop.fs.s3.endpoint=https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+spark.hadoop.fs.s3a.endpoint.region=auto
+spark.hadoop.fs.s3.endpoint.region=auto
 spark.hadoop.fs.s3a.connection.ssl.enabled=true
 spark.hadoop.fs.s3.access.key=<R2_ACCESS_KEY_ID>
 spark.hadoop.fs.s3.secret.key=<R2_SECRET_ACCESS_KEY>

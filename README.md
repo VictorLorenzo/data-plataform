@@ -9,8 +9,8 @@ The platform ingests data from diverse sources, including APIs (like IGDB), SFTP
 
 * **Apache NiFi:** Acts as the core ingestion engine, securely routing and transforming data in transit (via HTTPS).
 
-### 2. Storage Layer (Delta Lake / MinIO)
-At the heart of the platform is **MinIO**, serving as a highly performant, S3-compatible object storage system. It strictly adheres to the **Medallion Architecture** for progressive data refinement:
+### 2. Storage Layer (Delta Lake / Cloudflare R2)
+At the heart of the platform is **Cloudflare R2**, a highly performant, S3-compatible object storage system (self-hosted **MinIO** remains available as a fully local, offline alternative). It strictly adheres to the **Medallion Architecture** for progressive data refinement:
 
 * **Landing/Bronze:** Raw data ingestion.
 * **Silver:** Cleaned, filtered, and augmented data.
@@ -20,18 +20,18 @@ At the heart of the platform is **MinIO**, serving as a highly performant, S3-co
 Pipelines are version-controlled via Git (utilizing Python and Jinja) and executed through a powerful orchestration layer.
 
 * **Apache Airflow:** Orchestrates the entire data lifecycle using a distributed setup (CeleryExecutor, Redis broker, PostgreSQL metadata).
-* **Apache Spark:** A dedicated cluster (Master + multiple Workers) handles heavy-duty, distributed data processing, reading and writing to MinIO via the Hadoop AWS S3A connector.
+* **Apache Spark (4.1.1) + Delta Lake (4.3.1):** A dedicated cluster (Master + multiple Workers) handles heavy-duty, distributed data processing, reading and writing to R2 via the Hadoop AWS S3A connector (AWS SDK v2).
 
 ### 4. Data Catalog & Governance
 Metadata management and data governance are centralized to ensure data quality and discoverability.
 
-* **Unity Catalog:** Serves as the primary REST API catalog.
-* **PostgreSQL & Hive Metastore:** Back the Unity Catalog, tracking schemas and managing tables across the data lake.
+* **Unity Catalog (v0.5.0):** Serves as the primary REST API catalog. A single catalog (`datalake_uc`) holds one schema per project per medallion layer (`{project}_bronze`, `{project}_silver`, `{project}_gold`), created dynamically by the data framework as pipelines run.
+* **PostgreSQL:** Backs Unity Catalog's own metadata store. Delta tables are registered directly against Unity Catalog (no Hive Metastore mirror needed as of UC 0.5.0), with Iceberg UniForm providing cross-engine (Trino) compatibility.
 
 ### 5. Distributed SQL Engine
 **Trino** functions as the high-performance, distributed SQL query engine. 
 
-* Configured with a Coordinator and multiple Worker nodes, it leverages the **Iceberg connector** and Unity Catalog REST API to query data directly from MinIO without needing to move it.
+* Configured with a Coordinator and multiple Worker nodes, it leverages the **Iceberg connector** and Unity Catalog REST API to query data directly from R2 without needing to move it.
 
 ### 6. Visualization & Management
 The top layer empowers analysts and business users to extract insights effortlessly.
@@ -83,10 +83,24 @@ make network-create NETWORK=data-platform
   cd sftp && make up
   ```
 
-#### 2. MinIO – Object storage for scalable data management.
+#### 2. Object Storage – Cloudflare R2 (default) or MinIO (fully local alternative).
+
+**Cloudflare R2** (default — matches what every `spark-defaults.conf.example` template expects):
+
+* Create an R2 bucket + API token in the Cloudflare dashboard (R2 > Manage API tokens), then fill in the env file:
+  ```sh
+  cp r2/.env.example r2/.env
+  # Edit r2/.env with your R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ACCOUNT_ID
+  ```
+* Create the medallion buckets (`datalake-landing`, `datalake-bronze`, `datalake-silver`, `datalake-gold`, `datalake-uc`):
+  ```sh
+  cd r2 && ./create-buckets.sh
+  ```
+* Copy each `.example` config that references `<R2_ACCOUNT_ID>`/`<R2_ACCESS_KEY_ID>`/`<R2_SECRET_ACCESS_KEY>` placeholders (`unity-catalog/config/server.properties.example`, `airflow/config/spark-defaults.conf.example`, `spark/spark-config/spark-defaults.conf.example`, `jupyter/jupyter-config/spark-defaults.conf.example`, `airflow/spark/data_framework/jupyter-config/spark-defaults.conf.example`, `nifi/minio_sites/s3.properties.example`) to their real (gitignored) filename and substitute your R2 credentials.
+
+**MinIO** (fully local, no cloud account needed — requires repointing the same `.example` configs at `http://minio:9000` with the credentials below instead of R2):
 
 * Run the command at the terminal to start the container
-
   ```sh
   cd ../minio && make up
   ```
@@ -127,16 +141,17 @@ make network-create NETWORK=data-platform
   ```sh
   cd ../unity-catalog && make up
   ```
-* Wait for the init container to finish (creates medallion catalogs and schemas automatically)
+* Wait for the init container to finish (creates the `datalake_uc` catalog automatically)
 * Access the Unity Catalog UI at http://localhost:3001
 * Access the REST API at http://localhost:8087/api/2.1/unity-catalog/catalogs
 * Access the Swagger docs at http://localhost:8087/docs/#/
   ```
-  Catalogs created: landing, bronze, silver, gold
-  Schemas: default (in each catalog)
+  Catalog created: datalake_uc
+  Schemas: created dynamically per project/layer by the data framework
+           (e.g. datalake_uc.{project}_bronze, datalake_uc.{project}_silver, datalake_uc.{project}_gold)
   ```
 
-#### 5. Spark – Distributed data processing and analytics engine (Spark 3.5.3 + Delta Lake 3.2.1).
+#### 5. Spark – Distributed data processing and analytics engine (Spark 4.1.1 + Delta Lake 4.3.1).
 
 * Run the command at the terminal to start the containers
 

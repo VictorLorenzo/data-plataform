@@ -27,8 +27,8 @@
 # spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
 
-# Delta Lake 3.2.1 + AWS SDK + Unity Catalog connector
-spark.jars = jars/delta-spark_2.12-3.2.1.jar,jars/delta-storage-3.2.1.jar,jars/hadoop-aws-3.3.6.jar,jars/aws-java-sdk-bundle-1.12.367.jar,jars/unitycatalog-spark_2.12-0.2.1.jar,jars/delta-iceberg_2.12-3.2.1.jar
+# Delta Lake 4.3.1 + AWS SDK v2 + Unity Catalog connector
+spark.jars = jars/delta-spark_4.1_2.13-4.3.1.jar,jars/delta-storage-4.3.1.jar,jars/hadoop-aws-3.4.2.jar,jars/bundle-2.29.52.jar,jars/spark-avro_2.13-4.1.1.jar,jars/unitycatalog-spark_4.1_2.13-0.5.0.jar,jars/unitycatalog-client-0.5.0.jar,jars/unitycatalog-hadoop-0.5.0.jar,jars/delta-iceberg_2.13-4.3.1.jar
 spark.sql.extensions = io.delta.sql.DeltaSparkSessionExtension
 spark.sql.catalog.spark_catalog = org.apache.spark.sql.delta.catalog.DeltaCatalog
 spark.driver.extraJavaOptions = -Dderby.system.home=/tmp -Djavax.jdo.option.ConnectionURL=jdbc:derby:;databaseName=metastore_db;create=true -Ddatanucleus.schema.autoCreateTables=true -Ddatanucleus.schema.autoCreateAll=true
@@ -44,6 +44,8 @@ spark.hadoop.fs.s3a.impl = org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3.impl = org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3a.endpoint = https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
 spark.hadoop.fs.s3.endpoint = https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+spark.hadoop.fs.s3a.endpoint.region = auto
+spark.hadoop.fs.s3.endpoint.region = auto
 spark.hadoop.fs.s3a.access.key = <R2_ACCESS_KEY_ID>
 spark.hadoop.fs.s3a.secret.key = <R2_SECRET_ACCESS_KEY>
 spark.hadoop.fs.s3a.path.style.access = true

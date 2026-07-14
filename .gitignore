@@ -193,3 +193,6 @@ cython_debug/
 /airflow/config/spark-defaults.conf
 /spark/spark-config/spark-defaults.conf
 /jupyter/jupyter-config/spark-defaults.conf
+
+## UC metastore backups (pre-upgrade safety dumps, not source)
+/unity-catalog/backups/

@@ -27,9 +27,11 @@
 # spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
 
-# Delta Lake 3.2.1 + AWS SDK + Kyuubi extensions + Unity Catalog connector
-spark.jars                                          /usr/local/spark/jars/delta-spark_2.12-3.2.1.jar,/usr/local/spark/jars/delta-storage-3.2.1.jar,/usr/local/spark/jars/hadoop-aws-3.3.2.jar,/usr/local/spark/jars/aws-java-sdk-1.12.137.jar,/usr/local/spark/jars/s3-2.18.41.jar,/usr/local/spark/jars/aws-java-sdk-bundle-1.11.1026.jar,/usr/local/spark/jars/kyuubi-hive-jdbc-shaded-1.9.1.jar,/usr/local/spark/jars/kyuubi-extension-spark-jdbc-dialect_2.12-1.9.1.jar,/usr/local/spark/jars/unitycatalog-spark_2.12-0.2.0.jar,/usr/local/spark/jars/delta-iceberg_2.12-3.2.1.jar
-spark.sql.extensions                                io.delta.sql.DeltaSparkSessionExtension,org.apache.spark.sql.dialect.KyuubiSparkJdbcDialectExtension
+# Delta Lake 4.3.1 + AWS SDK v2 + Kyuubi JDBC client + Unity Catalog connector.
+# kyuubi-extension-spark-jdbc-dialect dropped: no Scala 2.13 build exists on
+# Maven Central (checked as of the Spark 4.1 migration).
+spark.jars                                          /usr/local/spark/jars/delta-spark_4.1_2.13-4.3.1.jar,/usr/local/spark/jars/delta-storage-4.3.1.jar,/usr/local/spark/jars/hadoop-aws-3.4.2.jar,/usr/local/spark/jars/bundle-2.29.52.jar,/usr/local/spark/jars/kyuubi-hive-jdbc-shaded-1.9.1.jar,/usr/local/spark/jars/unitycatalog-spark_4.1_2.13-0.5.0.jar,/usr/local/spark/jars/unitycatalog-client-0.5.0.jar,/usr/local/spark/jars/unitycatalog-hadoop-0.5.0.jar,/usr/local/spark/jars/delta-iceberg_2.13-4.3.1.jar
+spark.sql.extensions                                io.delta.sql.DeltaSparkSessionExtension
 spark.sql.catalog.spark_catalog                     org.apache.spark.sql.delta.catalog.DeltaCatalog
 spark.driver.extraJavaOptions                        -Dderby.system.home=/tmp -Djavax.jdo.option.ConnectionURL=jdbc:derby:;databaseName=metastore_db;create=true -Ddatanucleus.schema.autoCreateTables=true -Ddatanucleus.schema.autoCreateAll=true
 
@@ -48,6 +50,10 @@ spark.hadoop.fs.s3a.connection.ssl.enabled          true
 spark.hadoop.fs.s3a.impl                            org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3.impl                             org.apache.hadoop.fs.s3a.S3AFileSystem
 spark.hadoop.fs.s3.endpoint                         https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com
+spark.hadoop.fs.s3a.endpoint.region                 auto
+spark.hadoop.fs.s3.endpoint.region                  auto
+spark.hadoop.fs.s3.path.style.access                true
+spark.hadoop.fs.s3.connection.ssl.enabled           true
 spark.hadoop.fs.s3a.aws.credentials.provider        org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
 spark.sql.warehouse.dir                             s3://datalake-uc/warehouse
 spark.master                                        spark://spark-master:7077
