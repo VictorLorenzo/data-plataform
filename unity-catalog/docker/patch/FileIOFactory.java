@@ -126,13 +126,30 @@ public class FileIOFactory {
     return builder.build();
   }
 
+  private static final boolean IS_R2 =
+      S3_ENDPOINT != null && S3_ENDPOINT.contains("r2.cloudflarestorage.com");
+
   private AwsCredentialsProvider getAwsCredentialsProvider(NormalizedURL location) {
     try {
       AwsCredentials awsSessionCredentials =
           storageCredentialVendor.vendCredential(location, privileges).getAwsTempCredentials();
 
-      // When using S3-compatible store (MinIO), use basic credentials without
-      // session token. MinIO rejects fake session tokens with 403.
+      // R2's locally-signed JWT credential scheme (see AwsCredentialGenerator) derives
+      // secretAccessKey = sha256Hex(jwt) and packs the JWT itself into the session
+      // token (sessionToken = base64("jwt/" + jwt)). R2 needs that session token to
+      // validate the request signature at all - dropping it (as done below for MinIO)
+      // makes every request fail with "signature we calculated does not match".
+      if (IS_R2) {
+        return StaticCredentialsProvider.create(
+            AwsSessionCredentials.create(
+                awsSessionCredentials.getAccessKeyId(),
+                awsSessionCredentials.getSecretAccessKey(),
+                awsSessionCredentials.getSessionToken()));
+      }
+
+      // When using a generic S3-compatible store (e.g. MinIO) with static/placeholder
+      // credentials, use basic credentials without session token. MinIO rejects fake
+      // session tokens with 403.
       if (S3_ENDPOINT != null && !S3_ENDPOINT.isEmpty()) {
         return StaticCredentialsProvider.create(
             AwsBasicCredentials.create(
